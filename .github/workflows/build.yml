@@ -11,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          docker build -t bureaucrat .
+          sudo docker build -t bureaucrat .
