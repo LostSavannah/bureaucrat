@@ -13,7 +13,7 @@ async def get_tables():
     return [t["name"] for t in tables.list_tables()]
 
 @router.get("/{table}")
-async def get_tables(table:str, page_number:int = 0, page_size:int = 10):
+async def get_table_rows(table:str, page_number:int = 0, page_size:int = 10):
     query: str = f"SELECT * FROM {table} LIMIT {page_size} OFFSET {page_number*page_size};"
     return tables.execute_query(query)
 
