@@ -13,4 +13,4 @@ jobs:
       - run: |
           docker build -t bureaucrat .
           docker tag bureaucrat coderookieerick/bureaucrat
-          docker push coderookieerick/bureaucrat:tagname
+          docker push coderookieerick/bureaucrat:latest
