@@ -17,4 +17,6 @@ run pip install -r ./api/requirements.txt
 copy ./entrypoint.sh ./entrypoint.sh
 run chmod +x ./entrypoint.sh
 
+copy ./frontend/dist ./frontend
+
 cmd ./entrypoint.sh
