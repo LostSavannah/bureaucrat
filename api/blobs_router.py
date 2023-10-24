@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import Response
 
-from core.common import Storage
+from core.storage import Storage
 
 import base64
 
