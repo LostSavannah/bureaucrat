@@ -11,6 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
+          docker build -t bureaucrat .
+          docker stop bureaucrat_test || true
+          docker run -d --rm --name bureaucrat_test -p 19760:19760 bureaucrat
+          python3 -m venv testenv
+          source testenv/bin/activate
+          pip install requests
+          pip install pytest
+          pytest; docker stop bureaucrat_test
+          deactivate
+      - run: |
           docker login -u coderookieerick -p ${{ secrets.BUREAUCRAT_TOKEN }}
           docker build -t bureaucrat .
           docker tag bureaucrat coderookieerick/bureaucrat

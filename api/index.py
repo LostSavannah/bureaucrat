@@ -3,6 +3,8 @@ import queues_router
 import blobs_router
 import tables_router
 
+print("mamerto")
+
 api = FastAPI()
 
 api.include_router(queues_router.router, prefix="/queues", tags=["Queues"])
