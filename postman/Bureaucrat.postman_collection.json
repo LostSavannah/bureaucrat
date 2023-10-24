@@ -1,0 +1,337 @@
+{
+	"info": {
+		"_postman_id": "00110eae-9142-41b5-9c79-0aafd7760170",
+		"name": "Bureaucrat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8197674"
+	},
+	"item": [
+		{
+			"name": "queue",
+			"item": [
+				{
+					"name": "Get queues",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/queues/",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"queues",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enqueue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{$randomCatchPhrase}}"
+						},
+						"url": {
+							"raw": "{{BaseURL}}/queues/:queueName",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"queues",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dequeue",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BaseURL}}/queues/:queueName",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"queues",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove queue",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BaseURL}}/queues/:queueName",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"queues",
+								":queueName"
+							],
+							"variable": [
+								{
+									"key": "queueName",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "blobs",
+			"item": [
+				{
+					"name": "Write file",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "UHJ1ZWJhMQ=="
+						},
+						"url": {
+							"raw": "{{BaseURL}}/blobs/files/master",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"blobs",
+								"files",
+								"master"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read file",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BaseURL}}/blobs/files/master",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"blobs",
+								"files",
+								"master"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove file",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BaseURL}}/blobs/files/master",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"blobs",
+								"files",
+								"master"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tables",
+			"item": [
+				{
+					"name": "List tables",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BaseURL}}/tables/",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"tables",
+								""
+							],
+							"query": [
+								{
+									"key": "database",
+									"value": "main",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Query table",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BaseURL}}/tables/:table/?page_number=0&page_size=2",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"tables",
+								":table",
+								""
+							],
+							"query": [
+								{
+									"key": "database",
+									"value": "main",
+									"disabled": true
+								},
+								{
+									"key": "page_number",
+									"value": "0"
+								},
+								{
+									"key": "page_size",
+									"value": "2"
+								}
+							],
+							"variable": [
+								{
+									"key": "table",
+									"value": "people"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Execute query",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "INSERT INTO PEOPLE(Name) VALUES ('ME');"
+						},
+						"url": {
+							"raw": "{{BaseURL}}/tables/",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"tables",
+								""
+							],
+							"query": [
+								{
+									"key": "database",
+									"value": "main",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseURL",
+			"value": "http://localhost:19760",
+			"type": "string"
+		}
+	]
+}

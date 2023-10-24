@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import Response
+import os
 
 from core.storage import Storage
 
 import base64
 
-STORAGE_ROOT = "D:\\projects\\projects\\bureaucrat\\sandbox\\files"
+STORAGE_ROOT = os.environ.get("BUREAUCRAT_BLOBS_ROOT")
 
 storage = Storage(STORAGE_ROOT)
 

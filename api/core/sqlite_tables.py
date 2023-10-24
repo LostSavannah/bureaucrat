@@ -1,12 +1,14 @@
 import sqlite3
+import os
 
 class SqliteTables:
     def __init__(self, database_file_path:str) -> None:
         self.database_file_path = database_file_path
 
-    def execute_query(self, text:str):
+    def execute_query(self, text:str, database:str = 'main'):
         try:
-            with sqlite3.Connection(self.database_file_path) as connection:
+            database_name = os.sep.join([self.database_file_path, f'{database}.db'])
+            with sqlite3.Connection(database_name) as connection:
                 cursor:sqlite3.Cursor = connection.execute(text)
                 result = [i for i in self.get_dictionary(cursor)]
                 cursor.close()
@@ -15,8 +17,8 @@ class SqliteTables:
         except Exception as e:
             print(e)
 
-    def list_tables(self):
-        return self.execute_query("SELECT * FROM sqlite_master where type = 'table';")
+    def list_tables(self, database:str = 'main'):
+        return self.execute_query("SELECT * FROM sqlite_master where type = 'table';", database)
 
     def get_dictionary(self, cursor:sqlite3.Cursor):
         if cursor.description:
