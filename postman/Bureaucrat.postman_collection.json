@@ -197,6 +197,37 @@
 			"name": "tables",
 			"item": [
 				{
+					"name": "List databases",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BaseURL}}/tables",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"tables"
+							],
+							"query": [
+								{
+									"key": "database",
+									"value": "main",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "List tables",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -209,19 +240,25 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{BaseURL}}/tables/",
+							"raw": "{{BaseURL}}/tables/:database",
 							"host": [
 								"{{BaseURL}}"
 							],
 							"path": [
 								"tables",
-								""
+								":database"
 							],
 							"query": [
 								{
 									"key": "database",
 									"value": "main",
 									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "database",
+									"value": "main"
 								}
 							]
 						}
@@ -241,14 +278,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{BaseURL}}/tables/:table/?page_number=0&page_size=2",
+							"raw": "{{BaseURL}}/tables/:database/:table?page_number=0&page_size=2",
 							"host": [
 								"{{BaseURL}}"
 							],
 							"path": [
 								"tables",
-								":table",
-								""
+								":database",
+								":table"
 							],
 							"query": [
 								{
@@ -267,8 +304,12 @@
 							],
 							"variable": [
 								{
+									"key": "database",
+									"value": "main"
+								},
+								{
 									"key": "table",
-									"value": "people"
+									"value": "People"
 								}
 							]
 						}
@@ -282,22 +323,21 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "INSERT INTO PEOPLE(Name) VALUES ('ME');"
+							"raw": "INSERT INTO People(name) VALUES ('{{$randomCatchPhrase}}');"
 						},
 						"url": {
-							"raw": "{{BaseURL}}/tables/",
+							"raw": "{{BaseURL}}/tables/:database",
 							"host": [
 								"{{BaseURL}}"
 							],
 							"path": [
 								"tables",
-								""
+								":database"
 							],
-							"query": [
+							"variable": [
 								{
 									"key": "database",
-									"value": "main",
-									"disabled": true
+									"value": "main"
 								}
 							]
 						}

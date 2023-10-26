@@ -45,6 +45,11 @@ class Storage:
                     fo.writelines([f"{i}={files[i]}\n" for i in files])
             return result
 
+    async def get_files(self) -> dict[str, str]:
+        async with self.lock:
+            with open(self.manifest, 'r') as fi:
+                return {a[0]:a[1] for a in [i.strip().split("=") for i in fi.readlines()]}
+
     async def write_file(self, path:str, content:bytes):
         file_name:str = await self.get_file_path(path)
         with open(file_name, 'wb') as fo:
@@ -58,3 +63,25 @@ class Storage:
     async def delete_file(self, path:str):
         file_name:str = await self.get_file_path(path, True, True)
         os.unlink(file_name)
+
+def index(path:list[str], directories:list[list[str]], previows:list[str] = None):
+    print(path)
+    previows = previows or []
+    if len(path) == 0:
+        return {
+            "status": 200,
+            "path": previows,
+            "files": [i[0] for i in directories if len(i) == 1],
+            "folders": list(set([i[0] for i in directories if len(i) > 1])),
+        }
+    current, *path = path
+    previows.append(current)
+    directories = [d[1:] for d in directories if len(d) > 0 and d[0] == current]
+    if len(directories) == 0:
+        return {
+            "status": 404,
+            "path": previows,
+            "files": [],
+            "folders": []
+        }
+    return index(path, directories, previows)

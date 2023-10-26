@@ -28,3 +28,6 @@ class SqliteTables:
                 for index in range(len(row)):
                     result[columns[index]] = row[index]
                 yield result
+
+    def get_databases(self):
+        return [i[:-3] for i in os.listdir(self.database_file_path) if i.endswith(".db")]

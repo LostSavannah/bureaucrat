@@ -13,4 +13,12 @@ export class BureaucratQueuesService extends BaseHttpService{
     async deleteQueue(name:string){
         return await this.delete<Result<string>>(`${this.baseUrl}/queues/${name}`);
     }
+
+    async dequeue(name:string){
+        return await this.get<Result<string|null>>(`${this.baseUrl}/queues/${name}`);
+    }
+
+    async enqueue(name:string, content:string){
+        return await this.post<string, Result<string>>(`${this.baseUrl}/queues/${name}`, content);
+    }
 }

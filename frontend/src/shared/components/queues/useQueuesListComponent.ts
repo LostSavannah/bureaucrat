@@ -15,7 +15,7 @@ export default function useQueuesListComponent(){
     function deleteQueue(name:string){
         new BureaucratQueuesService()
             .deleteQueue(name)
-            .then((result) => setIndex(index => index+1))
+            .then((_) => setIndex(index => index+1))
             .catch(e => console.log(e));
     }
 

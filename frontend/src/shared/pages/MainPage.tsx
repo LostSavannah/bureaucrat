@@ -9,9 +9,9 @@ export default function MainPage(){
                 <header>Bureaucrat</header>
                 <nav>
                     <ul>
-                        <li><a href="/queues">Queues</a></li>
-                        <li><a href="/blobs">Blobs</a></li>
-                        <li><a href="/tables">Tables</a></li>
+                        <li><a href="/queues-page">Queues</a></li>
+                        <li><a href="/blobs-page">Blobs</a></li>
+                        <li><a href="/tables-page">Tables</a></li>
                     </ul>
                 </nav>
             </div>

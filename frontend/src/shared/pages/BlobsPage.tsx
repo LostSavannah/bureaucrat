@@ -1,3 +1,5 @@
+import BlobsExplorerComponent from "../components/blob/blob-explorer/BlobsExplorerComponent";
+
 export default function BlobsPage(){
-    return <>Blobs page</>
+    return <BlobsExplorerComponent></BlobsExplorerComponent>
 }

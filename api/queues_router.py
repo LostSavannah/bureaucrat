@@ -11,7 +11,9 @@ queues:dict[str, tuple[list[str], Lock]] = dict()
 @router.get("/")
 async def get_all_queues():
     global queues
-    return [i for i in queues]
+    return {
+        "result": [i for i in queues]
+    }
 
 @router.get("/{queue_name}")
 async def dequeue_from_queue(queue_name:str):
@@ -20,7 +22,9 @@ async def dequeue_from_queue(queue_name:str):
         queues[queue_name] = [[], Lock()]
     async with queues[queue_name][1]:
         if len(queues[queue_name][0]) > 0:
-            return Response(content=queues[queue_name][0].pop())
+            return {
+                "result": queues[queue_name][0].pop()
+            }
         else:
             return Response(status_code=204)
         
@@ -32,7 +36,10 @@ async def enqueue_in_queue(queue_name:str, request:Request):
     async with queues[queue_name][1]:
         content:str = (await request.body()).decode()
         queues[queue_name][0].insert(0, content)
-        return Response(status_code=200)
+        index:int = len(queues[queue_name][0])
+        return {
+            "result": f"Index:{index}"
+        }
     
 @router.delete("/{queue_name}")
 async def delete_queue(queue_name:str):
@@ -40,5 +47,7 @@ async def delete_queue(queue_name:str):
     if queue_name in queues:
         async with queues[queue_name][1]:
             del queues[queue_name]
-        return Response(status_code=200)
+        return {
+            "result": "Ok"
+        }
     raise HTTPException(status_code=404)

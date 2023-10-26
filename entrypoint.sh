@@ -1,1 +1,1 @@
-uvicorn --app-dir /bureaucrat/api index:api --host 0.0.0.0 --port 19760
+uvicorn --app-dir /bureaucrat/api index:api --host 0.0.0.0 --port 19760 --reload
