@@ -1,3 +1,5 @@
+import TablesListComponent from "../components/tables/TablesListComponent";
+
 export default function TablesPage(){
-    return <>Tables</>
+    return <TablesListComponent></TablesListComponent>
 }

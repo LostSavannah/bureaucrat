@@ -11,7 +11,7 @@ export interface UseBlobsExplorerComponentProps{
     onContent: (content:string, name:string) => void
 }
 
-export default function useBlobsExplorerComponent({onContent}:UseBlobsExplorerComponentProps){
+export default function useBlobsExplorerComponent(){
     const [directories, setDirectories] = useState<BlobDirectory[]>([]);
     const [currentDirectory, setCurrentDirectory] = useState<string>("");
     const [currentPath, setCurrentPath] = useState<string[]>([]);
@@ -33,7 +33,6 @@ export default function useBlobsExplorerComponent({onContent}:UseBlobsExplorerCo
             .then(result => {
                 const path:string[] = result.result.index.path;
                 const index:BlobResultIndex = result.result.index;
-                const content:string | null = result.result.content;
                 setExists(index.status == 200);
                 setCurrentPath(path);
                 const directories:BlobDirectory[] = index.files.map(file => ({
@@ -44,9 +43,6 @@ export default function useBlobsExplorerComponent({onContent}:UseBlobsExplorerCo
                     isFolder: true
                 })));
                 setDirectories(directories);
-                if(content){
-                    onContent(content, path[path.length - 1]);
-                }
             });
     }, [flag]);
 

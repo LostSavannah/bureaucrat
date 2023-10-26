@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 export default function QueuesListComponent(){
     const {queues, deleteQueue} = useQueuesListComponent();
     return <>
-        <h2>Available queues</h2>
+        <h2>Queues</h2>
         <TableComponent 
             keySelector={(item) => item}
             items={queues}

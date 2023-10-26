@@ -11,7 +11,7 @@ export default function MainPage(){
                     <ul>
                         <li><a href="/queues-page">Queues</a></li>
                         <li><a href="/blobs-page">Blobs</a></li>
-                        <li><a href="/tables-page">Tables</a></li>
+                        <li><a href="/tables-page/main">Tables</a></li>
                     </ul>
                 </nav>
             </div>

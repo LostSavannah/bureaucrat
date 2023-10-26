@@ -7,6 +7,7 @@ export class BureaucratBlobsService extends BaseHttpService{
         super();
     }
     async index(path:string){
+        console.log(`Indexing: ${path}`);
         return await this.get<Result<BlobResult>>(`${this.baseUrl}/blobs/${path}`);
     }
 }

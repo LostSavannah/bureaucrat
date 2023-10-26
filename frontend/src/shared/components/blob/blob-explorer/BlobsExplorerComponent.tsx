@@ -2,18 +2,15 @@ import React from "react";
 import useBlobsExplorerComponent, { BlobDirectory } from "./useBlobsExplorerComponent"
 
 export default function BlobsExplorerComponent() {
-    function download(content:string, name:string){
-        console.log(content);
-        console.log(name);
-    }
 
     const {
         search, 
         setCurrentDirectory, 
         currentDirectory,
         currentPath,
-        directories, navigateTo
-    } = useBlobsExplorerComponent({onContent: download});
+        directories,
+        navigateTo
+    } = useBlobsExplorerComponent();
 
     function handleOnKeyDown(event:React.KeyboardEvent<HTMLInputElement>){
         if(event.key === "Enter"){
@@ -25,17 +22,21 @@ export default function BlobsExplorerComponent() {
         setCurrentDirectory(event.target.value);
     }
 
-    function getIcon(b:BlobDirectory):string{
-        return b.isFolder? "🗀": "🗎";
-    }
-
     function getKey(b:BlobDirectory):string{
         return (b.isFolder? "fol.": "doc.") + b.name;
     }
 
-    function navigate(name:string){
-        const path = [...currentPath, name].join("/");
-        navigateTo(path);
+    function navigate(d:BlobDirectory){
+        if(d.isFolder){
+            const path = [...currentPath, d.name].join("/");
+            console.log(path); 
+            navigateTo(path);
+        }
+    }
+
+    function downloadLink(d:BlobDirectory){
+        const baseUrl:string = "http://127.0.0.1:19760/blobs/download:";
+        return baseUrl + [...currentPath, d.name].join("/");
     }
 
     return (
@@ -53,8 +54,13 @@ export default function BlobsExplorerComponent() {
             <div className="col-12">
                 <div className="form-group">
                     <ul>
-                        {directories.map(d => <li key={getKey(d)}>
-                            <a href="#" onClick={() => navigate(d.name)}>{getIcon(d)+d.name}</a>
+                        {directories.map(d => <li key={getKey(d)} >
+                            {
+                                d.isFolder? 
+                                <a href="#" onClick={() => navigate(d)}>🗀{d.name}</a> : 
+                                <a href={downloadLink(d)}>🗎{d.name}</a>
+                            }
+                            
                         </li>)}
                     </ul>
                 </div>

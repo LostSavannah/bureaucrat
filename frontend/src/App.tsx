@@ -30,7 +30,7 @@ const router = createBrowserRouter([
         element: <BlobsPage></BlobsPage>
       },
       {
-        path: "/tables-page",
+        path: "/tables-page/:database",
         element: <TablesPage></TablesPage>
       }
     ]
