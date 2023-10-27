@@ -12,34 +12,43 @@ export default function useTablesListComponent({database}:UseTablesListComponent
     const [index, setIndex] = useState(0);
     const [query, setQuery] = useState("");
     const [result, setResult] = useState<QueryResult>([]);
-    
+    const [history, setHistory] = useState<string[]>([]);
+
+    function saveHistory(){
+        let localHistory = [query, ...history.filter(i => i != query)];
+        while(localHistory.length > 10){
+            history.pop();
+        }
+        setHistory(localHistory);
+    }
+
     function runQuery(){
+        saveHistory();
         setIndex(index+1);
+    }
+
+    async function loadDatabasesAndTables(){
+        const service:BureaucratTablesService = new BureaucratTablesService();
+        setTables((await service.getTables(currentDatabase)).result);
+        setDatabases((await service.getDatabases()).result);
     }
 
     useEffect(() => {
         new BureaucratTablesService()
             .executeQuery(currentDatabase, query)
             .then(result => {
-                setResult(result.result);
+                if(result.result != null){
+                    setResult(result.result);
+                    loadDatabasesAndTables();   
+                }else{
+                    alert("SQL Error!");
+                }
             });
     }, [index]);
 
     useEffect(() => {
-        const service:BureaucratTablesService = new BureaucratTablesService();
-        service.getTables(currentDatabase)
-            .then(result => {
-                console.log(result.result);
-                setTables(result.result);
-                service.getDatabases()
-                    .then(result => {
-                        console.log(result.result);
-                        setDatabases(result.result);
-                    });
-            });
+        loadDatabasesAndTables();
     }, [currentDatabase]);
-
-
 
     return {
         setCurrentDatabase,
@@ -49,6 +58,7 @@ export default function useTablesListComponent({database}:UseTablesListComponent
         result,
         setQuery,
         query,
-        runQuery
+        runQuery,
+        history
     };
 }

@@ -6,6 +6,7 @@ import BlobsPage from "./shared/pages/BlobsPage";
 import TablesPage from "./shared/pages/TablesPage";
 import ErrorPage from "./shared/pages/ErrorPage";
 import QueueDetailPage from "./shared/pages/QueueDetailPage";
+import TableDetailPage from "./shared/pages/TableDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/tables-page/:database",
         element: <TablesPage></TablesPage>
+      },
+      {
+        path: "/tables-page/:database/:table",
+        element: <TableDetailPage></TableDetailPage>
       }
     ]
   }

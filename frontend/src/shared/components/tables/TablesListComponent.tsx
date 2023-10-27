@@ -2,6 +2,7 @@ import {useParams} from 'react-router'
 import useTablesListComponent from './useTablesListComponent';
 import TableComponent from '../table/TableComponent';
 import GenericTableComponent from '../table/GenericTableComponent';
+import { Link } from 'react-router-dom';
 
 export default function TablesListComponent() {
     const {database} = useParams();
@@ -13,7 +14,8 @@ export default function TablesListComponent() {
         result,
         runQuery,
         setQuery,
-        query
+        query,
+        history
     } = useTablesListComponent({database:database!});
 
     function handleChangeDatabase(event:React.ChangeEvent<HTMLSelectElement>){
@@ -22,6 +24,17 @@ export default function TablesListComponent() {
 
     function handleChangeQuery(event:React.ChangeEvent<HTMLTextAreaElement>){
         setQuery(event.target.value);
+    }
+
+    function handleKeyDown(event:React.KeyboardEvent<HTMLTextAreaElement>){
+        if(event.ctrlKey && event.code === "Enter"){
+            runQuery();
+        }
+    }
+
+    function executeQuery(query:string){
+        setQuery(query);
+        runQuery();
     }
 
     return (
@@ -37,13 +50,20 @@ export default function TablesListComponent() {
             </div>
             <h4>Query</h4>
             <div className="form-group">
-                <textarea onChange={handleChangeQuery} value={query} className='form-control'></textarea>
+                <textarea onKeyDown={handleKeyDown} onChange={handleChangeQuery} value={query} className='form-control'></textarea>
             </div>
-            <button onClick={runQuery} className='btn btn-primary'>Execute</button>
+            <button onClick={runQuery} className='btn btn-danger'>Execute (ctrl+Enter)</button>
+            <TableComponent
+                columns={{
+                    "History": (item) => <a href='#' onClick={() => executeQuery(item)}>{item}</a>
+                }}
+                items={history}
+                keySelector={t => history.indexOf(t).toString()}
+            ></TableComponent>
             <GenericTableComponent items={result}></GenericTableComponent>
             <TableComponent
                 columns={{
-                    "Table name": (item) => <>{item}</>
+                    "Tables": (item) => <><Link to={item}>{item}</Link></>
                 }}
                 items={tables}
                 keySelector={t => t}
