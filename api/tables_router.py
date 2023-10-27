@@ -10,7 +10,9 @@ router = APIRouter()
 
 @router.get("/")
 async def get_databases():
-    return tables.get_databases()
+    return {
+        "result": tables.get_databases()
+    }
 
 @router.get("/{database}")
 async def get_tables(database:str = 'main'):
