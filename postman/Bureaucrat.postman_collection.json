@@ -48,7 +48,7 @@
 							"variable": [
 								{
 									"key": "queueName",
-									"value": "test"
+									"value": "{{$randomAdjective}}"
 								}
 							]
 						}
@@ -79,7 +79,7 @@
 							"variable": [
 								{
 									"key": "queueName",
-									"value": "test"
+									"value": "redundant"
 								}
 							]
 						}
@@ -323,7 +323,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "INSERT INTO People(name) VALUES ('{{$randomCatchPhrase}}');"
+							"raw": "select * from people;"
 						},
 						"url": {
 							"raw": "{{BaseURL}}/tables/:database",
