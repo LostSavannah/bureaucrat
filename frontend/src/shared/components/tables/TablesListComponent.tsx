@@ -1,4 +1,4 @@
-import {useParams} from 'react-router'
+import {useNavigate, useParams} from 'react-router'
 import useTablesListComponent from './useTablesListComponent';
 import TableComponent from '../table/TableComponent';
 import GenericTableComponent from '../table/GenericTableComponent';
@@ -7,6 +7,7 @@ import Nothing from '../common/Nothing';
 
 export default function TablesListComponent() {
     const {database} = useParams();
+    const navigate = useNavigate();
     const {
         currentDatabase,
         databases,
@@ -21,6 +22,9 @@ export default function TablesListComponent() {
 
     function handleChangeDatabase(event:React.ChangeEvent<HTMLSelectElement>){
         setCurrentDatabase(event.target.value);
+        navigate(`../${event.target.value}`, {
+            relative: 'path'
+        });
     }
 
     function handleChangeQuery(event:React.ChangeEvent<HTMLTextAreaElement>){

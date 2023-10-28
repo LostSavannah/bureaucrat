@@ -25,6 +25,7 @@ The blob service consists in a simple plain storage. The name given to any blob 
 |---|---|---|
 |![GET](https://img.shields.io/badge/-GET-blue.svg)|/blobs/{full_path}|Get the index of the logic {full_path} location|
 |![GET](https://img.shields.io/badge/-GET-blue.svg)|/blobs/download:{full_path}|Downloads the blob in the logic {full_path} location|
+|![GET](https://img.shields.io/badge/-GET-blue.svg)|/blobs/raw:{full_path}|Gets the content of the blob in the logic {full_path} location as a base64 string|
 |![POST](https://img.shields.io/badge/-POST-green.svg)|/blobs/{full_path}|Writes a file in the logic {full_path} location|
 |![DELETE](https://img.shields.io/badge/-DELETE-red.svg)|/blobs/{full_path}|Deletes the file in the logic {full_path} location|
 

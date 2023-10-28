@@ -27,6 +27,19 @@ export default function useBlobsExplorerComponent(){
         search();
     }
 
+    async function deleteBlob(path:string){
+        await (new BureaucratBlobsService().deleteFile(path));
+        search();
+    }
+
+    async function uploadFiles(path:string, files:{[key:string]:string}){
+        const service = new BureaucratBlobsService();
+        Object.keys(files).forEach(async fileName => {
+            await service.uploadFile(`${path}/${fileName}`, files[fileName]);
+        });
+        search();
+    }
+
     useEffect(() => {
         new BureaucratBlobsService()
             .index(currentDirectory)
@@ -53,6 +66,8 @@ export default function useBlobsExplorerComponent(){
         exists,
         search,
         setCurrentDirectory,
-        navigateTo
+        navigateTo,
+        uploadFiles,
+        deleteBlob
     }
 }

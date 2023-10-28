@@ -13,12 +13,6 @@ storage = Storage(STORAGE_ROOT)
 
 router = APIRouter()
 
-#@router.get("/")
-async def get_files():
-    return {
-        "result": await storage.get_files()
-    }
-
 @router.get("/download:{full_path:path}")
 async def download(full_path:str):
     plain_files = await storage.get_files()
@@ -27,10 +21,19 @@ async def download(full_path:str):
         return FileResponse(plain_files[full_path], filename=filename)
     else:
         raise HTTPException(404, f"Blob '{full_path}' not found")
+    
+
+@router.get("/raw:{full_path:path}")
+async def download(full_path:str):
+    plain_files = await storage.get_files()
+    if full_path in plain_files:
+        with open(plain_files[full_path], 'rb') as fi:
+            return base64.b64encode(fi.read()).decode()
+    else:
+        raise HTTPException(404, f"Blob '{full_path}' not found")
 
 @router.get("/{full_path:path}")
 async def read_file(full_path:str):
-    print('read')
     filenames = [i.split("/") for i in (await storage.get_files())]
     path = [i for i in full_path.split("/") if len(i) > 0]
     return {
@@ -42,9 +45,10 @@ async def read_file(full_path:str):
 @router.post("/{full_path:path}")
 async def write_file(full_path:str, request:Request):
     content:bytes = base64.b64decode(await request.body())
-    await storage.write_file(full_path, content)
+    path = "/".join([i for i in full_path.split("/") if len(i) > 0])
+    await storage.write_file(path, content)
     return {
-        "result": full_path
+        "result": path
     }
 
 @router.delete("/{full_path:path}")

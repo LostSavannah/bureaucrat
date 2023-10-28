@@ -16,7 +16,7 @@ export default function TableDetailComponent() {
             <h2>Database: {database}</h2>
             <div className="container">
                 <div className="row">
-                    <h4>Table: {table}</h4>
+                    <h5>Table: {table}</h5>
                 </div>
                 <div className="row">
                     <Paginator

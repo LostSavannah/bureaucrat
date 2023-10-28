@@ -22,6 +22,7 @@ export default function QueuesListComponent(){
                     <input
                         value={newQueueName}
                         onChange={(e) => setNewQueueName(e.target.value)} 
+                        onKeyDown={(e) => e.key == "Enter" && createQueue()}
                         type="text" 
                         placeholder="Queue name here" 
                         className="form-control" />

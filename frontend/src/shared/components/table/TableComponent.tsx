@@ -14,7 +14,7 @@ export default function TableComponent<T>({keySelector, items, columns}:TableCom
     </thead>
     <tbody>
         {items.map(item => <tr key={keySelector(item)}>
-            {Object.keys(columns).map(column => <td>{columns[column](item)}</td>)}
+            {Object.keys(columns).map(column => <td key={keySelector(item) + ":" + column}>{columns[column](item)}</td>)}
         </tr>)}
     </tbody>
     </table>;

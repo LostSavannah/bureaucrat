@@ -17,3 +17,16 @@ export function choose<T>(items:T[]){
     const index = Math.floor(Math.random() * items.length);
     return items[index];
 }
+
+export function getBase64(file:File){
+    return new Promise<string>((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.onload = () => {
+            resolve(fileReader.result as string);
+        };
+        fileReader.onerror = (e) => {
+            reject(e);
+        };
+        fileReader.readAsDataURL(file);
+    });
+}

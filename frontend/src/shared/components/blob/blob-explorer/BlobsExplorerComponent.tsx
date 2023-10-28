@@ -1,6 +1,8 @@
 import React from "react";
 import useBlobsExplorerComponent, { BlobDirectory } from "./useBlobsExplorerComponent"
 import Nothing from "../../common/Nothing";
+import FileUpload from "../../fileUpload/FileUpload";
+import TableComponent from "../../table/TableComponent";
 
 export default function BlobsExplorerComponent() {
 
@@ -10,7 +12,9 @@ export default function BlobsExplorerComponent() {
         currentDirectory,
         currentPath,
         directories,
-        navigateTo
+        navigateTo,
+        uploadFiles,
+        deleteBlob
     } = useBlobsExplorerComponent();
 
     function handleOnKeyDown(event:React.KeyboardEvent<HTMLInputElement>){
@@ -30,8 +34,14 @@ export default function BlobsExplorerComponent() {
     function navigate(d:BlobDirectory){
         if(d.isFolder){
             const path = [...currentPath, d.name].join("/");
-            console.log(path); 
             navigateTo(path);
+        }
+    }
+
+    function handleDeleteBlob(d:BlobDirectory){
+        if(!d.isFolder){
+            const path = [...currentPath, d.name].join("/");   
+            deleteBlob(path);
         }
     }
 
@@ -43,28 +53,41 @@ export default function BlobsExplorerComponent() {
     return (
       <>
       <h2>Blobs</h2>
-      <div className="form-group">
-        <input type="text" 
-            onKeyDown={handleOnKeyDown} 
-            onChange={handleOnChange}
-            value={currentDirectory}
-            className="form-control" />
-      </div>
+      <FileUpload onUpload={uploadFiles}></FileUpload>
       <div className="container">
+        <div className="row">
+            <h5>Explore</h5>
+        </div>
         <div className="row">
             <div className="col-12">
                 <div className="form-group">
-                    <ul>
-                        {directories.map(d => <li key={getKey(d)} >
-                            {
-                                d.isFolder? 
-                                <a href="#" onClick={() => navigate(d)}>🗀{d.name}</a> : 
-                                <a href={downloadLink(d)}>🗎{d.name}</a>
-                            }
-                            
-                        </li>)}
-                    </ul>
-                </div>
+                  <input type="text" 
+                      onKeyDown={handleOnKeyDown} 
+                      onChange={handleOnChange}
+                      value={currentDirectory}
+                      className="form-control" />
+                </div>                
+            </div>
+        </div>
+        <div className="row">
+            <div className="col-12">
+                <TableComponent
+                    items={directories}
+                    columns={{
+                        "Directories": d => 
+                            d.isFolder? 
+                            <a href="#" onClick={() => navigate(d)}>🗀{d.name}</a> : 
+                            <>🗎{d.name}</>,
+                        "Actions": d =>
+                            !d.isFolder? 
+                            <>
+                            <a href={downloadLink(d)} className="btn btn-success">Download</a>
+                            <button onClick={() => handleDeleteBlob(d)} className="btn btn-danger">Delete</button>
+                            </>
+                            :""
+                    }}
+                    keySelector={getKey}
+                ></TableComponent>
                 {directories.length == 0? <Nothing></Nothing>: ""}
             </div>
         </div>
