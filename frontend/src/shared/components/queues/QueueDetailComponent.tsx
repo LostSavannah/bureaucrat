@@ -1,6 +1,7 @@
 import {useParams} from 'react-router-dom';
 import useQueueDetailComponent from "./useQueueDetailComponent";
 import Combo from '../common/Combo';
+import Nothing from '../common/Nothing';
 
 export default function QueueDetailComponent(){
     const {queueName} = useParams();
@@ -23,7 +24,7 @@ export default function QueueDetailComponent(){
     }
 
     return <>
-        <h2>{name}</h2>
+        <h2>Queue: {name}</h2>
         <div className="card">
             <div className="card-body">
                 <h5 className="card-title">
@@ -42,7 +43,7 @@ export default function QueueDetailComponent(){
                 </div>
                 <button onClick={onDequeue} className='btn btn-primary'>Dequeue</button>
                 <div className="form-group">
-                    {current ? <textarea className='form-control' value={current}></textarea>: ""}
+                    {current ? <textarea className='form-control' value={current}></textarea>: <Nothing></Nothing>}
                 </div>
             </div>
          </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import useBlobsExplorerComponent, { BlobDirectory } from "./useBlobsExplorerComponent"
+import Nothing from "../../common/Nothing";
 
 export default function BlobsExplorerComponent() {
 
@@ -64,6 +65,7 @@ export default function BlobsExplorerComponent() {
                         </li>)}
                     </ul>
                 </div>
+                {directories.length == 0? <Nothing></Nothing>: ""}
             </div>
         </div>
       </div>

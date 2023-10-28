@@ -12,3 +12,8 @@ export function base64ToBlob(rawBase64:string):Promise<Blob>{
         }
     });
 }
+
+export function choose<T>(items:T[]){
+    const index = Math.floor(Math.random() * items.length);
+    return items[index];
+}

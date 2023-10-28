@@ -14,7 +14,8 @@ export default function Paginator({onPageNumberChanged, onPageSizeChanged}:Pagin
         setCurrentPage,
         next,
         previows,
-        pageSize
+        pageSize,
+        setPageSize
     } = usePaginator(10, 0);
 
     useEffect(() => onPageNumberChanged(currentPage), [currentPage]);
@@ -39,6 +40,12 @@ export default function Paginator({onPageNumberChanged, onPageSizeChanged}:Pagin
                 </div>
                 <div className="col-auto">
                 <button className="btn btn-primary" onClick={next}>Next</button>
+                </div>
+                <div className="col-auto">
+                    Items per page
+                </div>
+                <div className="col-auto">
+                    <input onChange={(e) => setPageSize(parseInt(e.target.value))} value={pageSize} type="number" />
                 </div>
             </div>
         </div>
