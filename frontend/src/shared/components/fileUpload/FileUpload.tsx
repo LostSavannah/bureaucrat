@@ -12,9 +12,11 @@ export default function FileUpload({onUpload}:FileUploadProps) {
     async function handleFileUpload(event:React.ChangeEvent<HTMLInputElement>){
         if(event.target.files){
             let localFiles = {...files};
-            const file = event.target.files[0];
-            const base64 = (await getBase64(file)).split(',')[1];
-            localFiles[file.name] = base64;
+            for(let index = 0; index < event.target.files.length; index++){
+                const file = event.target.files[index];
+                const base64 = (await getBase64(file)).split(',')[1];
+                localFiles[file.name] = base64;
+            }
             setFiles({...localFiles});
         }
     }
@@ -36,10 +38,10 @@ export default function FileUpload({onUpload}:FileUploadProps) {
             <div className="row">
                 <div className="col-auto">
                     <div className="form-group">
-                        <label className="btn btn-primary" htmlFor="fileUpload">Select File</label>
+                        <label className="btn btn-primary" htmlFor="fileUpload">Select Files</label>
                         <input style={{
                             "opacity": 0
-                        }} onChange={handleFileUpload} id="fileUpload" type="file" />
+                        }} onChange={handleFileUpload} id="fileUpload" type="file" multiple/>
                     </div>
                 </div>
             </div>
