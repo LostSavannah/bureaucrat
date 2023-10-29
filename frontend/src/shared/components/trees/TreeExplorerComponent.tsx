@@ -1,6 +1,7 @@
 import {useParams} from 'react-router'
 import useTreeExplorerComponent from './useTreeExplorerComponent';
 import TreeIndexView from './TreeIndexView';
+import TreeValueView from './TreeValueView';
 
 export default function TreeExplorerComponent() {
     const {forest, tree} = useParams();
@@ -8,7 +9,9 @@ export default function TreeExplorerComponent() {
         currentForest,
         currentTree,
         currentIndex,
-        setCurrentPath
+        currentPath,
+        setCurrentPath,
+        currentItem
     } = useTreeExplorerComponent({initialForest: forest!, initialTree: tree!});
 
     function onNavigate(path:string){
@@ -25,10 +28,14 @@ export default function TreeExplorerComponent() {
                 <div className="row">
                     <div className="d-flex">
                         <TreeIndexView
+                            currentPath={currentPath}
                             index={currentIndex}
                             onNavigate={onNavigate} 
                         ></TreeIndexView>
                     </div>
+                </div>
+                <div className="row">
+                    <TreeValueView value={currentItem}></TreeValueView>
                 </div>
             </div>
         </>
