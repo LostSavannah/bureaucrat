@@ -48,14 +48,18 @@ async def get_tree(forest:str, tree:str, fullpath:str):
         return {
             "result":{
                 "kind": "string",
-                "value": node
+                "value": node,
+                "name": path[-1],
+                "path": fullpath
             }
         }
     else:
         return{
             "result":{
                 "kind": "list" if isinstance(node, list) else "dictionary",
-                "value": [i for i in node]
+                "value": [str(i) for i in node] if isinstance(node, dict) else [i for i in range(len(node))],
+                "name": path[-1],
+                "path": fullpath
             }
         }
 

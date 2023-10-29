@@ -43,20 +43,20 @@ class Tree:
             if not isinstance(root, list):
                 raise Exception(f"Node {current_path} is not a list")
             if current >= len(root):
-                if not item:
+                if item is None:
                     raise Exception(f"Index {current} not in node {current_path}")
                 else:
                     while len(root) <= current:
                         root.append(None)
                     root.append(item)
-            elif not item:
+            elif item is None:
                 return self.node(path, root[current], item, '/'.join([current_path, str(current)]))
             else:
                 root[current] = item
         else:
             if not isinstance(root, dict):
-                raise Exception(f"Node {current_path} is not a map")
-            if item:
+                raise Exception(f"Node {current_path} is not a dictionary")
+            elif item is not None:
                 root[current] = item
             elif not current in root:
                 raise Exception(f"Index {current} not in node {current_path}")
