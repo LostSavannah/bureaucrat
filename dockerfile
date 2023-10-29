@@ -15,6 +15,8 @@ copy ./api ./api
 
 run pip install -r ./api/requirements.txt
 
+copy ./default /bureaucrat/data
+
 copy ./entrypoint.sh ./entrypoint.sh
 run chmod +x ./entrypoint.sh
 

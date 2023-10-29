@@ -1,0 +1,19 @@
+{
+	"stringValueExample": "this is a string value",
+	"dictionaryExampe": {
+		"stringBranchExample1": "this is a string branch",
+		"stringBranchExample2": {
+			"stringLeafExample": "leaf",
+			"listLeafExample": [
+                "leaf2", 
+                "leaf3"
+            ]
+		}
+	},
+	"listExample":[
+        "this is another string value", 
+        {
+            "innerBranch": "yet another value"
+        }
+    ]
+}
