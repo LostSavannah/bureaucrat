@@ -17,7 +17,7 @@ jobs:
           npm i
           npm run build
           cd ..
-          docker build -t bureaucrat --no-cache .
+          docker build -t bureaucrat .
           docker stop bureaucrat_test || true
           docker run -d --rm --name bureaucrat_test -p 19760:19760 bureaucrat
           python3 -m venv testenv

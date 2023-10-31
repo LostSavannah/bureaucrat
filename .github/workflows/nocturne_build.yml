@@ -1,4 +1,4 @@
-name: Scheduled publish container
+name: Scheduled midnight build container
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  test_build:
     runs-on: ubuntu-01
     steps:
       
@@ -18,7 +18,7 @@ jobs:
           npm i
           npm run build
           cd ..
-          docker build -t bureaucrat --no-cache .
+          docker build -t bureaucrat .
       
       - name: Test
         run: |
@@ -34,4 +34,3 @@ jobs:
         if: always()
         run: |
           docker stop bureaucrat_test || true
-          deactivate
