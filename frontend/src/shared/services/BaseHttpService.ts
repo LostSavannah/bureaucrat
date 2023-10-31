@@ -2,11 +2,12 @@ export default class BaseHttpService{
     
     protected baseUrl:string = "http://localhost:19760";
 
-    protected get<TResult>(url:string):Promise<TResult>{
+    protected async get<TResult>(url:string):Promise<TResult>{
         return new Promise<TResult>((resolve, reject) => {
             fetch(url, {
                 method: "get"
             }).then(response => {
+                
                 response.json()
                     .then(result => resolve(result as TResult))
                     .catch(reject);
@@ -14,6 +15,19 @@ export default class BaseHttpService{
         });
     }
     
+    protected async getRaw(url:string):Promise<string>{
+        return new Promise<string>((resolve, reject) => {
+            fetch(url, {
+                method: "get"
+            }).then(response => {
+                
+                response.text()
+                    .then(result => resolve(result))
+                    .catch(reject);
+            }).catch(reject);
+        });
+    }
+
     protected post<T, TResult>(url:string, parameter:string|T):Promise<TResult>{
         return new Promise<TResult>((resolve, reject) => {
             fetch(url, {

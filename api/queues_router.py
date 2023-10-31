@@ -22,9 +22,7 @@ async def dequeue_from_queue(queue_name:str):
         queues[queue_name] = [[], Lock()]
     async with queues[queue_name][1]:
         if len(queues[queue_name][0]) > 0:
-            return {
-                "result": queues[queue_name][0].pop()
-            }
+            return Response(queues[queue_name][0].pop())
         else:
             return Response(status_code=204)
         

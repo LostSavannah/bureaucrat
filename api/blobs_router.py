@@ -13,8 +13,12 @@ storage = Storage(STORAGE_ROOT)
 
 router = APIRouter()
 
+def clean_path(path:str) -> str:
+    return "/".join([i for i in path.split("/") if len(i) > 0])
+
 @router.get("/download:{full_path:path}")
 async def download(full_path:str):
+    full_path = clean_path(full_path)
     plain_files = await storage.get_files()
     if full_path in plain_files:
         filename:str = full_path.split("/")[-1]
@@ -25,6 +29,7 @@ async def download(full_path:str):
 
 @router.get("/raw:{full_path:path}")
 async def download(full_path:str):
+    full_path = clean_path(full_path)
     plain_files = await storage.get_files()
     if full_path in plain_files:
         with open(plain_files[full_path], 'rb') as fi:
@@ -34,6 +39,7 @@ async def download(full_path:str):
 
 @router.get("/{full_path:path}")
 async def read_file(full_path:str):
+    full_path = clean_path(full_path)
     filenames = [i.split("/") for i in (await storage.get_files())]
     path = [i for i in full_path.split("/") if len(i) > 0]
     return {
@@ -44,15 +50,16 @@ async def read_file(full_path:str):
 
 @router.post("/{full_path:path}")
 async def write_file(full_path:str, request:Request):
+    full_path = clean_path(full_path)
     content:bytes = base64.b64decode(await request.body())
-    path = "/".join([i for i in full_path.split("/") if len(i) > 0])
-    await storage.write_file(path, content)
+    await storage.write_file(full_path, content)
     return {
-        "result": path
+        "result": full_path
     }
 
 @router.delete("/{full_path:path}")
 async def read_file(full_path:str):
+    full_path = clean_path(full_path)
     await storage.delete_file(full_path)
     return {
         "result": "Ok"

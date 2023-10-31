@@ -15,7 +15,7 @@ export class BureaucratQueuesService extends BaseHttpService{
     }
 
     async dequeue(name:string){
-        return await this.get<Result<string|null>>(`${this.baseUrl}/queues/${name}`);
+        return await this.getRaw(`${this.baseUrl}/queues/${name}`);
     }
 
     async enqueue(name:string, content:string){

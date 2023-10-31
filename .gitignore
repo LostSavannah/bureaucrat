@@ -4,3 +4,4 @@ __manifest__.txt
 main.db
 build.bat
 run.bat
+.pytest_cache

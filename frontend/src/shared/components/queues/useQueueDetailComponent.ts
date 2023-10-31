@@ -11,9 +11,9 @@ export default function useQueueDetailComponent(initial_name:string){
         service
             .dequeue(name)
             .then(result => {
-                setCurrent(result.result);
-                if(requeue && result.result){
-                    service.enqueue(name, result.result);
+                setCurrent(result);
+                if(requeue && result){
+                    service.enqueue(name, result);
                 }
             })
             .catch(() => {
