@@ -2,7 +2,7 @@ name: Build container
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "publish" ]
   workflow_dispatch:
 
 jobs:
@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-01
     steps:
       - uses: actions/checkout@v3
-      - run: |
+
+      - name: Build and test
+        run: |
           cd frontend
           npm i
           npm run build
@@ -24,8 +26,9 @@ jobs:
           pip install pytest
           pytest; docker stop bureaucrat_test
           deactivate
-      - run: |
+
+      - name: Publish
+        run: |
           docker login -u coderookieerick -p ${{ secrets.BUREAUCRAT_TOKEN }}
-          docker build -t bureaucrat .
           docker tag bureaucrat coderookieerick/bureaucrat
           docker push coderookieerick/bureaucrat:latest

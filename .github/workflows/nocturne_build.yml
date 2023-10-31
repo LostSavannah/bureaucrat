@@ -9,9 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-01
     steps:
-      - name: Stepper!
+      
       - uses: actions/checkout@v3
-      - run: |
+
+      - name: Build
+        run: |
           cd frontend
           npm i
           npm run build
@@ -19,7 +21,7 @@ jobs:
           docker build -t bureaucrat --no-cache .
       
       - name: Test
-      - run: |
+        run: |
           docker stop bureaucrat_test || true
           docker run -d --rm --name bureaucrat_test -p 19760:19760 bureaucrat
           python3 -m venv testenv
@@ -27,8 +29,9 @@ jobs:
           pip install requests
           pip install pytest
           pytest
-          
+
       - name: Cleanup
-      - run: |
-          docker stop bureaucrat_test
+        if: always()
+        run: |
+          docker stop bureaucrat_test || true
           deactivate
