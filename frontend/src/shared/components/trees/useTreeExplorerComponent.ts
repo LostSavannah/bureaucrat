@@ -39,7 +39,6 @@ export default function useTreeExplorerComponent({initialForest, initialTree}:Us
         const service = new BureaucratTreesService();
         const result = await service.getValue(currentForest, currentTree, currentPath.join("/"));
         setCurrentItem(result.result);
-        console.log(result);
     }
 
     async function updateIndex() {

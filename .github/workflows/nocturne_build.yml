@@ -1,0 +1,34 @@
+name: Scheduled publish container
+
+on:
+  schedule:
+    - cron: "* 4 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-01
+    steps:
+      - name: Stepper!
+      - uses: actions/checkout@v3
+      - run: |
+          cd frontend
+          npm i
+          npm run build
+          cd ..
+          docker build -t bureaucrat --no-cache .
+      
+      - name: Test
+      - run: |
+          docker stop bureaucrat_test || true
+          docker run -d --rm --name bureaucrat_test -p 19760:19760 bureaucrat
+          python3 -m venv testenv
+          source testenv/bin/activate
+          pip install requests
+          pip install pytest
+          pytest
+          
+      - name: Cleanup
+      - run: |
+          docker stop bureaucrat_test
+          deactivate

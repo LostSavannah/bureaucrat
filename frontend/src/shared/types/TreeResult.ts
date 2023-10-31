@@ -5,6 +5,8 @@ export interface TreeIndex{
     path: string
 }
 
-export interface TreeValue{
-    [index: string|number] : string | TreeValue | TreeValue[]
+export interface Dict{
+    [key: string|number] : TreeValue
 }
+
+export type TreeValue = string | Dict | Dict[]
