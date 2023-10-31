@@ -4,7 +4,7 @@ A lightweight experimental credential-less service with queues, tables, blobs an
 
 ## Admin site
 
-In the hosting machine you can access the admin site in this location: [http://localhost:5173/](http://localhost:5173/)
+In the hosting machine you can access the admin site in this location: [http://localhost:19760/](http://localhost:19760/)
 
 ## Queues
 
