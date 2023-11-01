@@ -15,9 +15,9 @@
       crossorigin="anonymous"></script>
 </head>
 <body>
-    <header class="bg-primary">
-        <h1>Bureaucrat</h1>
-        <h5>Credential-less queues, blobs, sqlite3 tables and trees</h5>
+    <header class="text-primary bg-primary p-4">
+        <h3>Bureaucrat</h3>
+        <h6>Credential-less queues, blobs, sqlite3 tables and trees</h6>
     </header>
     <div class="container">
        <div class="row">
