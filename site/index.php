@@ -15,6 +15,18 @@
       crossorigin="anonymous"></script>
 </head>
 <body>
-    This is bureaucrat
+    <header class="bg-primary">
+        <h1>Bureaucrat</h1>
+        <h5>Credential-less queues, blobs, sqlite3 tables and trees</h5>
+    </header>
+    <div class="container">
+       <div class="row">
+        <div class="col-12">
+            <a 
+                href="https://hub.docker.com/r/coderookieerick/bureaucrat" 
+                class="btn btn-primary"> View in dockerhub </a>
+        </div>
+       </div> 
+    </div>
 </body>
 </html>
