@@ -15,11 +15,11 @@
       crossorigin="anonymous"></script>
 </head>
 <body>
-    <header class="text-primary bg-primary p-4">
+    <header class="text-light bg-primary p-4">
         <h3>Bureaucrat</h3>
         <h6>Credential-less queues, blobs, sqlite3 tables and trees</h6>
     </header>
-    <div class="container">
+    <div class="container p-2">
        <div class="row">
         <div class="col-12">
             <a 
