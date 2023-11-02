@@ -252,7 +252,7 @@ apiMethods("#tablesTable", [
     {method: "POST", path: "/tables/{database}", 
         description: "Executes in the {database} the query sent in the body and returns the result"
     },
-    {method: "DELETE", path: "/tables/{database}/{table}", 
+    {method: "GET", path: "/tables/{database}/{table}", 
         description: "Retrieves every record in the {table} in the {database}"
     },
 ]);
