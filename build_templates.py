@@ -4,7 +4,7 @@ import json
 
 data:str = Template("{{ example }}").render(**{"example": "Pedro"})
 
-manifest_location:str = 'C:\\projects\\personal\\bureaucrat\\templates\\manifest.txt'
+manifest_location:str = 'templates/manifest.txt'
 data_location:str = 'documentation.json'
 
 def get_content(location:str):
