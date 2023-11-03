@@ -16,6 +16,6 @@ jobs:
           python3 -m venv testenv
           source testenv/bin/activate
           pip install jinja2
-          python3 build_template.py
+          python3 build_templates.py
           rm -r /var/www/php/bureaucrat/* || true
           cp -r site/* /var/www/php/bureaucrat
