@@ -1,25 +1,25 @@
-from ubuntu:latest
+FROM ubuntu:latest
 
-workdir /bureaucrat
+WORKDIR /bureaucrat
 
-env BUREAUCRAT_TABLES_DATABASE=/bureaucrat/data/tables
-env BUREAUCRAT_BLOBS_ROOT=/bureaucrat/data/blobs
-env BUREAUCRAT_TREES_ROOT=/bureaucrat/data/trees
+ENV BUREAUCRAT_TABLES_DATABASE=/bureaucrat/data/tables
+ENV BUREAUCRAT_BLOBS_ROOT=/bureaucrat/data/blobs
+ENV BUREAUCRAT_TREES_ROOT=/bureaucrat/data/trees
 
-run mkdir -p $BUREAUCRAT_TABLES_DATABASE $BUREAUCRAT_BLOBS_ROOT $BUREAUCRAT_TREES_ROOT
+RUN mkdir -p $BUREAUCRAT_TABLES_DATABASE $BUREAUCRAT_BLOBS_ROOT $BUREAUCRAT_TREES_ROOT
 
-run apt-get update
-run apt-get install -y python3.11 python3-venv python3-pip
+RUN apt-get update
+RUN apt-get install -y python3.11 python3-venv python3-pip
 
-copy ./api ./api
+COPY ./api ./api
 
-run pip install -r ./api/requirements.txt
+RUN pip install -r ./api/requirements.txt
 
-copy ./default /bureaucrat/data
+COPY ./default /bureaucrat/data
 
-copy ./entrypoint.sh ./entrypoint.sh
-run chmod +x ./entrypoint.sh
+COPY ./entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
 
-copy ./frontend/dist ./frontend
+COPY ./frontend/dist ./frontend
 
-cmd ./entrypoint.sh
+CMD ./entrypoint.sh

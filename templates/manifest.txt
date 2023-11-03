@@ -1,0 +1,2 @@
+templates/template.php:site/index.php
+templates/template.md:README.md
