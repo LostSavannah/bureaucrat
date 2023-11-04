@@ -43,13 +43,20 @@ export default function useTreeExplorerComponent({initialForest, initialTree}:Us
 
     async function updateIndex() {
         const service = new BureaucratTreesService();
-        let localIndex:TreeIndex[] = [];
+        const localIndex:TreeIndex[] = [];
         for(let index = 1; index <= currentPath.length; index++){
             const path:string = currentPath.slice(0, index).join("/");
             const pathIndex = await service.getIndex(currentForest, currentTree, path);
             localIndex.push(pathIndex.result);
         }
         setCurrentIndex([...localIndex]);
+    }
+
+    async function setValue(value:TreeValue, path:string[]){
+        const service = new BureaucratTreesService();
+        await service.setValue(currentForest, currentTree, path.join('/'), value);
+        updateIndex();
+        updateValue();
     }
 
     return{
@@ -62,6 +69,7 @@ export default function useTreeExplorerComponent({initialForest, initialTree}:Us
         currentItem,
         setCurrentForest,
         setCurrentTree,
-        setCurrentPath
+        setCurrentPath,
+        setValue
     }
 }

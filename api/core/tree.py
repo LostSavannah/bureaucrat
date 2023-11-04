@@ -29,8 +29,10 @@ class Tree:
         with open(filename, 'w') as fo:
             json.dump(self.root, fo)
 
-    def node(self, path:list[str], root:Node = None, item:Node = None, current_path:str = '.'):
-        root = root or self.root
+    def node(self, path:list[str], root:Node = None, item:Node = None, current_path:str = '$'):
+        print(path)
+        if root == None:
+            root = self.root
         if len(path) == 0:
             return root
         current:Union[str, int]
@@ -42,22 +44,26 @@ class Tree:
         if isinstance(current, int):
             if not isinstance(root, list):
                 raise Exception(f"Node {current_path} is not a list")
-            if current >= len(root):
-                if item is None:
-                    raise Exception(f"Index {current} not in node {current_path}")
-                else:
+            elif item is not None:
+                if len(path) == 0:
                     while len(root) <= current:
-                        root.append(None)
-                    root.append(item)
-            elif item is None:
-                return self.node(path, root[current], item, '/'.join([current_path, str(current)]))
+                        root.append(None)    
+                    root[current] = item
+                else:
+                    return self.node(path, root[current], item, '/'.join([current_path, str(current)]))
+            elif len(root) < current:
+                raise Exception(f"Index {current} not in node {current_path}")
             else:
-                root[current] = item
+                return self.node(path, root[current], item, '/'.join([current_path, str(current)]))
         else:
             if not isinstance(root, dict):
                 raise Exception(f"Node {current_path} is not a dictionary")
             elif item is not None:
-                root[current] = item
+                if len(path) == 0:
+                    root[current] = item
+                    print(f"set in {current_path}")
+                else:
+                    return self.node(path, root[current], item, '/'.join([current_path, str(current)]))
             elif not current in root:
                 raise Exception(f"Index {current} not in node {current_path}")
             else:

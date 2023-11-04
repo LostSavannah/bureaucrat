@@ -28,11 +28,11 @@ export default class BaseHttpService{
         });
     }
 
-    protected post<T, TResult>(url:string, parameter:string|T):Promise<TResult>{
+    protected post<T, TResult>(url:string, parameter:string|T, forceJson:boolean = false):Promise<TResult>{
         return new Promise<TResult>((resolve, reject) => {
             fetch(url, {
                 method: "post",
-                body: typeof parameter === "string" ? parameter :  JSON.stringify(parameter)
+                body: !forceJson && typeof parameter === "string" ? parameter :  JSON.stringify(parameter)
             }).then(response => {
                 response.json()
                     .then(result => resolve(result as TResult))

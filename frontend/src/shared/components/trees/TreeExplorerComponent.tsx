@@ -2,6 +2,8 @@ import {useParams} from 'react-router'
 import useTreeExplorerComponent from './useTreeExplorerComponent';
 import TreeIndexView from './TreeIndexView';
 import TreeValueView from './TreeValueView';
+import { TreeValueEditor } from './editor/TreeValueEditor';
+import { TreeValue } from '../../types/TreeResult';
 
 export default function TreeExplorerComponent() {
     const {forest, tree} = useParams();
@@ -11,11 +13,18 @@ export default function TreeExplorerComponent() {
         currentIndex,
         currentPath,
         setCurrentPath,
-        currentItem
+        currentItem,
+        setValue
     } = useTreeExplorerComponent({initialForest: forest!, initialTree: tree!});
 
     function onNavigate(path:string){
         setCurrentPath(path.split('/'))
+    }
+
+    function onSetValue(value:TreeValue, path:string[]){
+        console.log(value);
+        //console.log(path);
+        setValue(value, path)
     }
 
     return (
@@ -36,6 +45,13 @@ export default function TreeExplorerComponent() {
                 </div>
                 <div className="row">
                     <TreeValueView value={currentItem}></TreeValueView>
+                </div>
+                <div className="row">
+                    <TreeValueEditor
+                        value={currentItem}
+                        path={[...currentPath]}
+                        setValue={onSetValue}
+                    ></TreeValueEditor>
                 </div>
             </div>
         </>
