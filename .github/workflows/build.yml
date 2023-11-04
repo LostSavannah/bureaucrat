@@ -1,4 +1,4 @@
-name: Build container
+name: Publish to dockerhub
 
 on:
   push:
@@ -24,8 +24,13 @@ jobs:
           source testenv/bin/activate
           pip install requests
           pip install pytest
-          pytest; docker stop bureaucrat_test
+          pytest
           deactivate
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker stop bureaucrat_test || true
 
       - name: Publish
         run: |
