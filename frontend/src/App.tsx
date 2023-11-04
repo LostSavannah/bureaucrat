@@ -39,7 +39,7 @@ const router = createBrowserRouter([
         element: <TableDetailPage></TableDetailPage>
       },
       {
-        path: "/trees/:forest/:tree",
+        path: "/trees-page/:forest/:tree",
         element: <TreesExplorerPage></TreesExplorerPage>
       }
     ]

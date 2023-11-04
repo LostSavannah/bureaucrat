@@ -12,7 +12,7 @@ export default function MainPage(){
                         <li><a href="/queues-page">Queues</a></li>
                         <li><a href="/blobs-page">Blobs</a></li>
                         <li><a href="/tables-page/main">Tables</a></li>
-                        <li><a href="/trees/default/default">Trees</a></li>
+                        <li><a href="/trees-page/default/default">Trees</a></li>
                     </ul>
                 </nav>
             </div>
