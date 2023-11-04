@@ -1,4 +1,4 @@
-name: Publish to dockerhub
+name: Publish container
 
 on:
   push:
@@ -9,7 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-01
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Build and test
         run: |
@@ -32,7 +33,7 @@ jobs:
         run: |
           docker stop bureaucrat_test || true
 
-      - name: Publish
+      - name: Publish container
         run: |
           docker login -u coderookieerick -p ${{ secrets.BUREAUCRAT_TOKEN }}
           docker tag bureaucrat coderookieerick/bureaucrat
