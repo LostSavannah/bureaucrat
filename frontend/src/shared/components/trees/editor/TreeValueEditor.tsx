@@ -8,24 +8,28 @@ export interface TreeValueEditorProps{
 
 export function TreeValueStringEditor({value, path, setValue}:TreeValueEditorProps){
     return (<>
-        <input type="text" 
+        "<input
+            type="text" 
+            className="text-success"
             value={value as string}
             onChange={(e) => {
                 const content = e.target.value;
-                setValue(content, path);
+                setValue(content ?? "", path);
             }}
-        />
+        />"
     </>);
 }
 
 export function TreeListEditor({value, path, setValue}:TreeValueEditorProps){
     if(Array.isArray(value)){   
-        return <> {Object.keys(value).map(key => (
-        <TreeValueEditor
-            value={value[parseInt(key)]}
-            path={[...path, key]}
-            setValue={setValue}
-        ></TreeValueEditor>))} </>;
+        return <> &#91; {Object.keys(value).map(key => (
+        <div className="p-2">
+            <TreeValueEditor
+                value={value[parseInt(key)]}
+                path={[...path, key]}
+                setValue={setValue}
+            ></TreeValueEditor>
+        </div> ))} &#93; </>;
     }
     return <></>;
 }
@@ -44,12 +48,13 @@ export function TreeValueEditor({value, path, setValue}:TreeValueEditorProps){
         setValue={setValue}
     ></TreeListEditor>       
     }else{
-        return <> {Object.keys(value).map(key => (<>
-            <strong>{key}</strong> <TreeValueEditor
-                value={value[key]}
-                path={[...path, key]}
-                setValue={setValue}
-            ></TreeValueEditor>
-        </>))} </>;
+        return <> &#123; <div className="p-2">{Object.keys(value).map(key => (<>
+            <div className="p-2 text-danger"><strong>"{key}":</strong>
+                    <TreeValueEditor
+                        value={value[key]}
+                        path={[...path, key]}
+                        setValue={setValue}
+                    ></TreeValueEditor>,</div> 
+        </>))} </div> &#125; </>;
     }
 }

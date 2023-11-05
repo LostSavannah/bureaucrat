@@ -1,7 +1,6 @@
 import {useParams} from 'react-router'
 import useTreeExplorerComponent from './useTreeExplorerComponent';
 import TreeIndexView from './TreeIndexView';
-import TreeValueView from './TreeValueView';
 import { TreeValueEditor } from './editor/TreeValueEditor';
 import { TreeValue } from '../../types/TreeResult';
 
@@ -42,9 +41,6 @@ export default function TreeExplorerComponent() {
                             onNavigate={onNavigate} 
                         ></TreeIndexView>
                     </div>
-                </div>
-                <div className="row">
-                    <TreeValueView value={currentItem}></TreeValueView>
                 </div>
                 <div className="row">
                     <TreeValueEditor

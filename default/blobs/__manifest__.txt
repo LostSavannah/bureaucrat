@@ -1,2 +1,2 @@
-readme.txt=bureaucrat/data/readme.txt
-hyperlinks/readme.txt=bureaucrat/data/readme.txt
+readme.txt=/bureaucrat/data/readme.txt
+hyperlinks/readme.txt=/bureaucrat/data/readme.txt
