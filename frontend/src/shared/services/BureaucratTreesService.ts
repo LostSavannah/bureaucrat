@@ -2,8 +2,6 @@ import { Result } from "../types/Result";
 import { TreeIndex, TreeValue } from "../types/TreeResult";
 import BaseHttpService from "./BaseHttpService";
 
-export type QueryResult = {[key:string]:any}[]
-
 export class BureaucratTreesService extends BaseHttpService{
     constructor(){
         super();
