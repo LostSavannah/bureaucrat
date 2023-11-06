@@ -246,6 +246,18 @@
                 src="https://github.com/LostSavannah/bureaucrat/actions/workflows/build.yml/badge.svg?branch=publish"
             />
         </a>
+    </div><div>
+        <a href="https://github.com/LostSavannah/bureaucrat/actions/workflows/">
+            <img
+                src="https://github.com/LostSavannah/bureaucrat/actions/workflows/nocturne_build.yml/badge.svg?branch=main"
+            />
+        </a>
+    </div><div>
+        <a href="https://github.com/LostSavannah/bureaucrat/actions/workflows/">
+            <img
+                src="https://github.com/LostSavannah/bureaucrat/actions/workflows/site.yml/badge.svg?branch=site"
+            />
+        </a>
     </div>
     </footer>
 </body>

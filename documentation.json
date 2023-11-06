@@ -169,6 +169,16 @@
             "title": "Bureaucrat",
             "action": "build",
             "branches": ["publish"]
+        },
+        {
+            "title": "Bureaucrat",
+            "action": "nocturne_build",
+            "branches": ["main"]
+        },
+        {
+            "title": "Bureaucrat",
+            "action": "site",
+            "branches": ["site"]
         }
     ]
 }
