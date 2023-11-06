@@ -162,5 +162,13 @@
                 }
             ]
         }
+    ],
+    "repository": "https://github.com/LostSavannah/bureaucrat",
+    "badges":[
+        {
+            "title": "Bureaucrat",
+            "action": "build",
+            "branches": ["publish"]
+        }
     ]
 }

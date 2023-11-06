@@ -240,7 +240,13 @@
        </div> 
     </div>
     <footer>
-
+    <div>
+        <a href="https://github.com/LostSavannah/bureaucrat/actions/workflows/">
+            <img
+                src="https://github.com/LostSavannah/bureaucrat/actions/workflows/build.yml/badge.svg?branch=publish"
+            />
+        </a>
+    </div>
     </footer>
 </body>
 </html>

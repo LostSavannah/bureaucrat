@@ -1,4 +1,7 @@
-# Bureaucrat
+
+[![Bureaucrat](https://github.com/LostSavannah/bureaucrat/actions/workflows/build.yml/badge.svg?branch=publish)](https://github.com/LostSavannah/bureaucrat/actions/workflows/)
+
+# [Bureaucrat](https://github.com/LostSavannah/bureaucrat)
 simple queues, blobs, tables and trees
 ## Admin site
 In the hosting machine you can access the admin site in this location: [http://localhost:19760/](http://localhost:19760/)

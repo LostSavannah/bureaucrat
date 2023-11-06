@@ -1,7 +1,10 @@
-# {{ title }}
+{% for badge in badges %}{% for branch in badge.branches %}
+[![{{title}}]({{repository}}/actions/workflows/{{badge.action}}.yml/badge.svg?branch={{branch}})]({{repository}}/actions/workflows/{{badge.action.yml}})
+{% endfor %}{% endfor %}
+# [{{title}}]({{repository}})
 {{ slogan }}
 {% for p in md_paragraphs-%}
-## {{ p.title }}
+## {{p.title}}
 {{ p.text }}
 {% endfor %}
 {% for service in services-%}
