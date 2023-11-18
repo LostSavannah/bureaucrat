@@ -2,7 +2,7 @@ name: Publish Nuget Library
 
 on:
   push:
-    branches: [ "net" ]
+    branches: [ "nuget" ]
   workflow_dispatch:
 
 jobs:
