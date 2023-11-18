@@ -16,6 +16,7 @@ jobs:
         run: |
           cd net
           VERSION="gha+"$(date "+%s")
+          VERSION="alpha1"
           dotnet test Bureaucrat.Test
           dotnet pack Core/Bureaucrat.Core.csproj --version-suffix $VERSION -o ./package
           dotnet nuget push ./package/*.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json
