@@ -1,0 +1,19 @@
+name: Publish Nuget Library
+
+on:
+  push:
+    branches: [ "net" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-01
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Test library
+        run: |
+          cd net
+          dotnet test Bureaucrat.Test
+          dotnet pack Core/Bureaucrat.Core.csproj -o ./package
