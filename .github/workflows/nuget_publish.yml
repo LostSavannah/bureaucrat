@@ -17,3 +17,4 @@ jobs:
           cd net
           dotnet test Bureaucrat.Test
           dotnet pack Core/Bureaucrat.Core.csproj -o ./package
+          dotnet nuget push ./package/Bureaucrat.Core.1.0.0.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json
