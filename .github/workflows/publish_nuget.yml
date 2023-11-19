@@ -1,4 +1,4 @@
-name: Publish Nuget Library
+name: Publish Nuget package
 
 on:
   push:
@@ -12,9 +12,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Test library
+      - name: Test
         run: |
-          cd net
-          dotnet test Bureaucrat.Test
-          dotnet pack Core/Bureaucrat.Core.csproj --version-suffix $VERSION -o ./package
+          dotnet test ./net/Bureaucrat.Test
+
+      - name: Pack
+        run: |
+          dotnet pack ./net/Core/Bureaucrat.Core.csproj --version-suffix $VERSION -o ./package
+
+      - name: Publish package to nuget
+        run: |
           dotnet nuget push ./package/*.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json

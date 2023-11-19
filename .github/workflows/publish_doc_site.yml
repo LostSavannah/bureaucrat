@@ -2,7 +2,7 @@ name: Publish site
 
 on:
   push:
-    branches: [ "site" ]
+    branches: [ "documentation-site" ]
   workflow_dispatch:
 
 jobs:
