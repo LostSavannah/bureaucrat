@@ -13,4 +13,6 @@ public class BlobFolder(string rawPath, BureaucratBlobService service) : BlobInd
             }
         }
     }
+
+    public async Task<BlobFile> GetOrCreateFile(string name) => await Service.EnsureFile(string.Join("/", RawPath, name));
 }

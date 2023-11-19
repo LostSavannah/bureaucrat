@@ -43,4 +43,9 @@ public class HttpService : IHttpService
         using var response = await httpClient.PostAsJsonAsync(url, parameter);
         response.EnsureSuccessStatusCode();
     }
+
+    async Task IHttpService.PostString(string url, string content)
+    {
+        (await httpClient.PostAsync(url, new StringContent(content))).EnsureSuccessStatusCode();
+    }
 }

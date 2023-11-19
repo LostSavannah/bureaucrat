@@ -21,10 +21,16 @@ var folder = connection.BlobService.Root;
 await foreach(var child in folder.Walk())
 {
     Console.WriteLine(child.RawPath);
+    var file1 = await child.GetOrCreateFile("ejemplo.txt");
+    string contento = await file1.GetContent(Encoding.UTF8);
+    await file1.SetContent($"{contento}+Contenido");
+    await file1.Delete();
+
     foreach(var file in await child.Files)
     {
         Console.WriteLine(file.RawPath);
         string content = Encoding.UTF8.GetString(await file.GetContent());
+        await file.SetContent("Americo");
         Console.WriteLine(content);
     }
 }

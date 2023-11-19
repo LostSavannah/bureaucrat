@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from fastapi.exceptions import HTTPException
 import os
 
@@ -33,7 +33,7 @@ async def get_content(full_path:str):
     plain_files = await storage.get_files()
     if full_path in plain_files:
         with open(plain_files[full_path], 'rb') as fi:
-            return base64.b64encode(fi.read()).decode()
+            return Response(base64.b64encode(fi.read()).decode())
     else:
         raise HTTPException(404, f"Blob '{full_path}' not found")
 
@@ -42,9 +42,12 @@ async def get_index(full_path:str):
     full_path = clean_path(full_path)
     filenames = [i.split("/") for i in (await storage.get_files())]
     path = [i for i in full_path.split("/") if len(i) > 0]
+    index_result = index(path, filenames)
+    if index_result["status"] == 404:
+        raise HTTPException(404, f"Location '{full_path}' not found")
     return {
         "result": {
-            "index": index(path, filenames)
+            "index": index_result
         }
     }
 
