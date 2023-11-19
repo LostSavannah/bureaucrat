@@ -12,11 +12,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Publish site
+      - name: Build site
         run: |
           python3 -m venv testenv
           source testenv/bin/activate
           pip install jinja2
           python3 build_templates.py
+      
+      - name: Publish site
+        run: |
           rm -r /var/www/php/bureaucrat/* || true
           cp -r site/* /var/www/php/bureaucrat

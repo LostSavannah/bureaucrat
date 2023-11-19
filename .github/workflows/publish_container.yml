@@ -33,7 +33,7 @@ jobs:
         run: |
           docker stop bureaucrat_test || true
 
-      - name: Publish container
+      - name: Publish container to dockerhub
         run: |
           docker login -u coderookieerick -p ${{ secrets.BUREAUCRAT_TOKEN }}
           docker tag bureaucrat coderookieerick/bureaucrat

@@ -1,4 +1,4 @@
-name: Scheduled midnight build container
+name: Scheduled midnight
 
 on:
   schedule:
@@ -13,15 +13,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build
+      - name: Build admin site
         run: |
           cd frontend
           npm i
           npm run build
           cd ..
+
+      - name: Build container
+        if: always()
+        run: |
           docker build -t bureaucrat .
       
-      - name: Test
+      - name: Test container and python client
         run: |
           docker stop bureaucrat_test || true
           docker run -d --rm --name bureaucrat_test -p 19760:19760 bureaucrat
