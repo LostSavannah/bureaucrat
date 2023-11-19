@@ -1,6 +1,6 @@
 ﻿namespace Bureaucrat.Core.Queuing;
 
-public class BureaucratTypedQueue<T>(BureaucratQueue queue)
+public class BureaucratTypedQueue<T>(BureaucratQueue queue): ITypeableQueue
 {
     BureaucratQueue Queue { get; init; } = queue;
     public string Name => Queue.Name;
@@ -16,5 +16,5 @@ public class BureaucratTypedQueue<T>(BureaucratQueue queue)
         return this;
     }
 
-    public BureaucratTypedQueue<U> As<U>() => new BureaucratTypedQueue<U>(Queue);
+    public BureaucratTypedQueue<U> Of<U>() => new(Queue);
 }

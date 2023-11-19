@@ -3,12 +3,11 @@ using System.Text.Json;
 
 namespace Bureaucrat.Core.Queuing;
 
-public class BureaucratQueueService(IHttpService httpService)
+public class BureaucratQueueService(IHttpService httpService): BureaucratBaseService(httpService, "queues")
 {
-    public IHttpService HttpService { get; init; } = httpService;
     public async Task<IEnumerable<BureaucratQueue>> GetQueues()
     {
-        return (await HttpService.Get<GenericResult<List<string>>>("/queues/")).Result!
+        return (await HttpService.Get<GenericResult<List<string>>>($"/{EndpointName}/")).Result!
             .Select(queueName => new BureaucratQueue(this, queueName));
     }
 
@@ -16,11 +15,10 @@ public class BureaucratQueueService(IHttpService httpService)
 
     public async Task<T?> Dequeue<T>(string queueName)
     {
-        string result = await HttpService.Get<string>($"/queues/{queueName}");
-        return string.IsNullOrEmpty(result) ? default : JsonSerializer.Deserialize<T>(result);
+        return await HttpService.Get<T>($"/{EndpointName}/{queueName}");
     }
 
-    public async Task<string> Enqueue<T>(string queueName, T value) => (await HttpService.Post<T, GenericResult<string>>($"/queues/{queueName}", value)).Result!;
+    public async Task<string> Enqueue<T>(string queueName, T value) => (await HttpService.Post<T, GenericResult<string>>($"/{EndpointName}/{queueName}", value)).Result!;
 
-    public async Task DropQueue(string queueName) => await HttpService.Delete<GenericResult<string>>($"/queues/{queueName}");
+    public async Task DropQueue(string queueName) => await HttpService.Delete<GenericResult<string>>($"/{EndpointName}/{queueName}");
 }

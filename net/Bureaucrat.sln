@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bureaucrat.Network", "Netwo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bureaucrat.Client", "Bureaucrat.Client\Bureaucrat.Client.csproj", "{7CCB1DA1-330F-469A-BCE3-23DA669DD565}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bureaucrat.Test", "Bureaucrat.Test\Bureaucrat.Test.csproj", "{6F92EC83-571D-41DF-BC27-207E639DE434}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7CCB1DA1-330F-469A-BCE3-23DA669DD565}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CCB1DA1-330F-469A-BCE3-23DA669DD565}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CCB1DA1-330F-469A-BCE3-23DA669DD565}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F92EC83-571D-41DF-BC27-207E639DE434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F92EC83-571D-41DF-BC27-207E639DE434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F92EC83-571D-41DF-BC27-207E639DE434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F92EC83-571D-41DF-BC27-207E639DE434}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

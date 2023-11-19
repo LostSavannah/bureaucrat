@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>preview</LangVersion>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
-    <Version>1.0.1</Version>
+    <Version>$(VersionPrefix)</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docs\README.MD" Pack="true" PackagePath="\" />

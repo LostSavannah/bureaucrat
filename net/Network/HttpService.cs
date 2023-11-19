@@ -28,7 +28,8 @@ public class HttpService : IHttpService
     async Task<T> IHttpService.Get<T>(string url, Func<string, T> parser)
     {
         using var response = await httpClient.GetAsync(url);
-        return parser(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync());
+        string rawContent = await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
+        return parser(rawContent);
     }
 
     async Task<TResult> IHttpService.Post<T, TResult>(string url, T parameter)
