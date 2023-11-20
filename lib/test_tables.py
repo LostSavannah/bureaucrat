@@ -2,6 +2,7 @@ import random
 from .client.common.tables import TablesService
 
 baseUrl = "http://localhost:19760"
+
 service:TablesService = TablesService(baseUrl)
 
 def random_string(size:int = 100):

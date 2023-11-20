@@ -11,11 +11,13 @@ RUN mkdir -p $BUREAUCRAT_TABLES_DATABASE $BUREAUCRAT_BLOBS_ROOT $BUREAUCRAT_TREE
 RUN apt-get update
 RUN apt-get install -y python3.11 python3-venv python3-pip
 
-COPY ./api ./api
+COPY ./api/requirements.txt ./api/
 
 RUN pip install -r ./api/requirements.txt
 
 COPY ./default /bureaucrat/data
+
+COPY ./api ./api
 
 COPY ./entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh

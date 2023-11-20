@@ -4,7 +4,6 @@ from typing import Iterator
 from .client.common.blobs import BlobsService, BlobsIndex
 
 baseUrl = "http://localhost:19760"
-blobs:BlobsService = BlobsService(baseUrl)
 
 service:BlobsService = BlobsService(baseUrl)
 

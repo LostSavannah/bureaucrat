@@ -2,6 +2,7 @@ import uuid
 from .client.common.queues import QueueService
 
 baseUrl = "http://localhost:19760"
+
 queues:QueueService = QueueService(baseUrl)
 
 def test_on_enqueue_gets_created():
