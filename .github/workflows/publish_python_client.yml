@@ -14,6 +14,7 @@ jobs:
 
       - name: Build and publish
         run: |
+          cd lib
           python3 -m venv publishdev
           source publishdev/bin/activate
           pip install build
