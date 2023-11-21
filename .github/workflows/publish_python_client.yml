@@ -12,14 +12,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build and publish
+      - name: Test
+        working-directory: ./lib
         run: |
-          cd lib
-          python3 -m venv publishdev
-          source publishdev/bin/activate
+          python3 -m venv testenv
+          pip install pytest 
+          pip install requests
+          pytest
+
+      - name: Build package
+        working-directory: ./lib
+        run: |
+          python3 -m venv buildenv
+          source buildenv/bin/activate
           pip install build
           pip install setuptools
-          pip install twine
           python3 -m build
+          deactivate
+
+      - name: Publish package
+        working-directory: ./lib
+        run: |
+          python3 -m venv publishenv
+          source publishenv/bin/activate
+          pip install twine
           twine upload -u __token__ -p ${{ secrets.PYBUREAUCRAT_TWINE_TOKEN }} dist/*
           deactivate
