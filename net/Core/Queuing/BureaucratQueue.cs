@@ -1,9 +1,11 @@
-﻿namespace Bureaucrat.Core.Queuing;
+﻿using Bureaucrat.Core.Common;
 
-public class BureaucratQueue(BureaucratQueueService bureaucratQueueService, string name): ITypeableQueue
+namespace Bureaucrat.Core.Queuing;
+
+public class BureaucratQueue(BureaucratQueueService bureaucratQueueService, string name):
+    BureaucratNamedServiceResource<BureaucratQueueService>(bureaucratQueueService, name),
+    ITypeableQueue
 {
-    BureaucratQueueService Service { get; init; } = bureaucratQueueService;
-    public string Name { get; init; } = name;
     public async Task<T?> Dequeue<T>() => await Service.Dequeue<T>(Name);
     public async Task<BureaucratQueue> Enqueue<T>(T item)
     {

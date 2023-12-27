@@ -48,4 +48,10 @@ public class HttpService : IHttpService
     {
         (await httpClient.PostAsync(url, new StringContent(content))).EnsureSuccessStatusCode();
     }
+
+    async Task<T> IHttpService.PostString<T>(string url, string content)
+    {
+        var response = (await httpClient.PostAsync(url, new StringContent(content))).EnsureSuccessStatusCode();
+        return (await response.Content.ReadFromJsonAsync<T>())!;
+    }
 }

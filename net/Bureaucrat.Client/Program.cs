@@ -1,14 +1,25 @@
 ﻿using Bureaucrat.Core.Connection;
-using Bureaucrat.Core.Queuing;
 using Bureaucrat.Network;
 using System.Text;
-
-BureaucratQueueService service = new(new HttpService("http://localhost:19760"));
 
 BureaucratServerConnection connection = new(
     "http://localhost:19760", 
     new CustomHttpServiceProvider(url => new HttpService(url))
     );
+
+var database = (await connection.TableService.GetRows<Person>("main", "people")).ToList();
+
+var columns = await connection.TableService.GetColumns("main", "people");
+
+await connection.TableService.EnsureTable("main", "concepts", new List<Bureaucrat.Core.Tables.BureaucratColumnInfo>()
+{
+    new(){ColumnName = "Name"},
+    new(){ColumnName = "Description"}
+});
+
+await connection.TableService.InsertRow("main", "people", new Person { 
+    Name = "Mamerto", Age = 12
+});
 
 var queue = connection.QueueService.GetQueue("test").Of<string>();
 
@@ -36,3 +47,9 @@ await foreach(var child in folder.Walk())
 }
 
 Console.Read();
+
+public class Person
+{
+    public string Name { get; set; } = string.Empty;
+    public int Age { get; set; }
+}
