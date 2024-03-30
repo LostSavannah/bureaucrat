@@ -51,5 +51,5 @@ jobs:
       - name: Build local bureaucrat
         run: |
           docker stop bureaucrat_local || true
-          docker build -t bureaucrat_local --build-arg BUREAUCRAT_API_HOST=https://test.moradev.dev/apps/bureaucrat .
+          docker build -t bureaucrat_local --build-arg BUREAUCRAT_API_HOST=https://test.moradev.dev/apps/bureaucrat --build-arg BUREAUCRAT_SITE_BASENAME=/apps/bureaucrat .
           docker run -d --rm --name bureaucrat_local -p 19970:19970 bureaucrat_local
