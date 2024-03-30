@@ -1,4 +1,4 @@
-name: Scheduled midnight
+name: Scheduled midnight docker publish
 
 on:
   schedule:
@@ -42,9 +42,3 @@ jobs:
           docker login -u coderookieerick -p ${{ secrets.BUREAUCRAT_TOKEN }}
           docker tag bureaucrat coderookieerick/bureaucrat
           docker push coderookieerick/bureaucrat:latest
-
-      - name: Build local bureaucrat
-        run: |
-          docker stop bureaucrat_local || true
-          docker build -t bureaucrat_local --build-arg BUREAUCRAT_API_HOST=https://test.moradev.dev/apps/bureaucrat --build-arg BUREAUCRAT_SITE_BASENAME=/apps/bureaucrat .
-          docker run -d --rm --name bureaucrat_local -p 19970:19970 bureaucrat_local
