@@ -45,7 +45,9 @@ export default function BlobsExplorerComponent() {
     }
 
     function downloadLink(d:BlobDirectory){
-        const baseUrl:string = "http://127.0.0.1:19760/blobs/download:";
+        const apiUrl:string = import.meta.env.VITE_API_URL;
+        const baseName:string = import.meta.env.VITE_BASENAME;
+        const baseUrl:string = `${apiUrl}${baseName}/download:`;
         return baseUrl + [...currentPath, d.name].join("/");
     }
 

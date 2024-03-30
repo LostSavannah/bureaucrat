@@ -1,4 +1,5 @@
 import {Outlet} from 'react-router';
+import { Link } from 'react-router-dom';
 
 
 export default function MainPage(){
@@ -9,10 +10,10 @@ export default function MainPage(){
                 <header>Bureaucrat</header>
                 <nav>
                     <ul>
-                        <li><a href="/queues-page">Queues</a></li>
-                        <li><a href="/blobs-page">Blobs</a></li>
-                        <li><a href="/tables-page/main">Tables</a></li>
-                        <li><a href="/trees-page/default/default">Trees</a></li>
+                        <li><Link to="/queues-page">Queues</Link></li>
+                        <li><Link to="/blobs-page">Blobs</Link></li>
+                        <li><Link to="/tables-page/main">Tables</Link></li>
+                        <li><Link to="/trees-page/default/default">Trees</Link></li>
                     </ul>
                 </nav>
             </div>

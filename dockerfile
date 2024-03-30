@@ -47,9 +47,5 @@ COPY ./default /bureaucrat/data
 COPY --from=frontend /app/dist ./frontend
 COPY --from=documentation /app/site ./frontend/doc
 COPY ./api ./api
-COPY --from=configuration /app/.env main.txt
-RUN apt update
-RUN apt install -y nano
-
 
 CMD ["python", "/bureaucrat/api/index.py"]
