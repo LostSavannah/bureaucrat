@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test_build:
+  build:
     runs-on: ubuntu-test
     steps:
       
@@ -38,6 +38,15 @@ jobs:
           docker login -u coderookieerick -p ${{ secrets.BUREAUCRAT_TOKEN }}
           docker tag bureaucrat coderookieerick/bureaucrat
           docker push coderookieerick/bureaucrat:latest
+
+
+  
+  local_publish:
+    runs-on: ubuntu-test
+    steps:
+  
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Build local bureaucrat
         run: |
