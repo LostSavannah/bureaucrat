@@ -9,7 +9,7 @@ export class BureaucratTablesService extends BaseHttpService{
     }
 
     async getDatabases(){
-        return await this.get<Result<string[]>>(`${this.baseUrl}/tables`);
+        return await this.get<Result<string[]>>(`${this.baseUrl}/tables/`);
     }
 
     async getTables(database:string){
