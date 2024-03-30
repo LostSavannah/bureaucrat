@@ -6,7 +6,6 @@ WORKDIR /app
 RUN echo VITE_API_URL=${BUREAUCRAT_API_HOST} >> .env
 RUN echo VITE_BASENAME=${BUREAUCRAT_SITE_BASENAME} >> .env
 
-
 FROM node:latest as frontend
 
 WORKDIR /app
@@ -28,7 +27,6 @@ COPY ./documentation.json .
 COPY ./templates ./templates
 RUN mkdir ./site
 RUN python3 ./build_templates.py
-
 
 FROM python:latest as main
 

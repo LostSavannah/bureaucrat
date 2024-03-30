@@ -1,4 +1,4 @@
-import {useLocation} from 'react-router'
+import {useLocation, useRouteError} from 'react-router'
 
 const baseName: string = import.meta.env.VITE_BASENAME;
 
@@ -6,6 +6,8 @@ const baseName: string = import.meta.env.VITE_BASENAME;
 
 export default function ErrorPage(){
     const location = useLocation();
+    const error = useRouteError();
+    console.log(error);
     const details: {name: string, data: string}[] = [
         {name: "baseName", data: baseName},
         {name: "location", data: location.pathname}
