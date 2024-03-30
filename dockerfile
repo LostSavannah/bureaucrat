@@ -1,8 +1,9 @@
+FROM ubuntu:latest as configuration
+WORKDIR /app
+
 ARG BUREAUCRAT_API_HOST=http://localhost:19760
 ARG BUREAUCRAT_SITE_BASENAME=/
 
-FROM ubuntu:latest as configuration
-WORKDIR /app
 RUN echo VITE_API_URL=${BUREAUCRAT_API_HOST} > .env
 RUN echo VITE_BASENAME=${BUREAUCRAT_SITE_BASENAME} >> .env
 
