@@ -3,7 +3,7 @@ import random
 from typing import Iterator
 from .client.common.blobs import BlobsService, BlobsIndex
 
-baseUrl = "http://localhost:19760"
+baseUrl = "http://localhost:19970"
 
 service:BlobsService = BlobsService(baseUrl)
 

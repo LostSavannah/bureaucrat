@@ -1,7 +1,7 @@
 import random
 from .client.common.tables import TablesService
 
-baseUrl = "http://localhost:19760"
+baseUrl = "http://localhost:19970"
 
 service:TablesService = TablesService(baseUrl)
 

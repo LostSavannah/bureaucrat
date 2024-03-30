@@ -1,7 +1,7 @@
 import uuid
 from .client.common.queues import QueueService
 
-baseUrl = "http://localhost:19760"
+baseUrl = "http://localhost:19970"
 
 queues:QueueService = QueueService(baseUrl)
 
