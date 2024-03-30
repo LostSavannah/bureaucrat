@@ -1,6 +1,6 @@
 import {useLocation, useRouteError} from 'react-router'
 
-const baseName: string = import.meta.env.VITE_BASENAME;
+const baseName: string = import.meta.env.VITE_BASENAME ?? "/apps/bureaucrat";
 
 
 
