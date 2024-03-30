@@ -44,9 +44,9 @@ RUN mkdir -p $BUREAUCRAT_TABLES_DATABASE $BUREAUCRAT_BLOBS_ROOT $BUREAUCRAT_TREE
 COPY ./api/requirements.txt ./api/
 RUN pip install -r ./api/requirements.txt
 COPY ./default /bureaucrat/data
-COPY ./api ./api
 
 COPY --from=frontend /app/dist ./frontend
 COPY --from=documentation /app/site ./frontend/doc
+COPY ./api ./api
 
 CMD ["python", "/bureaucrat/api/index.py"]
