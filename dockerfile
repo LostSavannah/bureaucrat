@@ -47,5 +47,7 @@ COPY --from=frontend /app/dist ./frontend
 COPY --from=documentation /app/site ./frontend/doc
 COPY ./api ./api
 COPY --from=configuration /app/.env ./.env
+RUN echo hello > main.txt
+
 
 CMD ["python", "/bureaucrat/api/index.py"]
