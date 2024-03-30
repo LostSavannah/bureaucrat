@@ -12,9 +12,10 @@ FROM node:latest as frontend
 WORKDIR /app
 
 COPY ./frontend .
+RUN npm i
+
 COPY --from=configuration /app .
 
-RUN npm i
 RUN npm run build
 
 FROM python:latest as documentation
