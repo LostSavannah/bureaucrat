@@ -18,9 +18,13 @@ jobs:
         run: |
           docker build -t bureaucrat .
       
+      - name: Stop running containers
+        run: |
+          docker stop bureaucrat_local || true
+          docker stop bureaucrat_test || true
+
       - name: Test container with python client
         run: |
-          docker stop bureaucrat_test || true
           docker run -d --rm --name bureaucrat_test -p 19970:19970 bureaucrat
           python3 -m venv testenv
           source testenv/bin/activate
@@ -38,15 +42,6 @@ jobs:
           docker login -u coderookieerick -p ${{ secrets.BUREAUCRAT_TOKEN }}
           docker tag bureaucrat coderookieerick/bureaucrat
           docker push coderookieerick/bureaucrat:latest
-
-
-  
-  local_publish:
-    runs-on: ubuntu-test
-    steps:
-  
-      - name: Checkout
-        uses: actions/checkout@v3
 
       - name: Build local bureaucrat
         run: |
