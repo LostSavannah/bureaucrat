@@ -1,8 +1,11 @@
 from fastapi import FastAPI
+import uvicorn
 import queues_router
 import blobs_router
 import tables_router
 import trees_router
+
+import os
 
 from common.http import configure_cors, SPAStaticFiles
 
@@ -14,5 +17,12 @@ api.include_router(blobs_router.router, prefix="/blobs", tags=["Blobs"])
 api.include_router(tables_router.router, prefix="/tables", tags=["Tables"])
 api.include_router(trees_router.router, prefix="/trees", tags=["Trees"])
 
-api.mount("/", SPAStaticFiles(directory="/bureaucrat/frontend", html=True), name = "static")
+api.mount(
+    "/", 
+    SPAStaticFiles(directory=os.environ.get("BUREAUCRAT_STATIC_PATH"), html=True), 
+    name = "static")
 
+try:
+    uvicorn.run(api, host="0.0.0.0", port=19970)
+except KeyboardInterrupt:
+    exit(0)

@@ -8,9 +8,15 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
+            "program": "./api/index.py",
             "console": "integratedTerminal",
-            "justMyCode": true
+            "justMyCode": true,
+            "env": {
+                "BUREAUCRAT_TABLES_DATABASE": "C:\\projects\\personal\\bureaucrat\\default\\tables",
+                "BUREAUCRAT_BLOBS_ROOT": "C:\\projects\\personal\\bureaucrat\\default\\blobs",
+                "BUREAUCRAT_TREES_ROOT": "C:\\projects\\personal\\bureaucrat\\default\\trees",
+                "BUREAUCRAT_STATIC_PATH": "C:\\projects\\personal\\bureaucrat\\frontend\\dist"
+            }
         }
     ]
 }

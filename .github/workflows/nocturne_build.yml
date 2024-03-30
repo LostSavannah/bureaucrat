@@ -7,28 +7,21 @@ on:
 
 jobs:
   test_build:
-    runs-on: ubuntu-01
+    runs-on: ubuntu-test
     steps:
       
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Build admin site
-        run: |
-          cd frontend
-          npm i
-          npm run build
-          cd ..
 
       - name: Build container
         if: always()
         run: |
           docker build -t bureaucrat .
       
-      - name: Test container and python client
+      - name: Test container with python client
         run: |
           docker stop bureaucrat_test || true
-          docker run -d --rm --name bureaucrat_test -p 19760:19760 bureaucrat
+          docker run -d --rm --name bureaucrat_test -p 19970:19970 bureaucrat
           python3 -m venv testenv
           source testenv/bin/activate
           pip install requests
@@ -39,3 +32,15 @@ jobs:
         if: always()
         run: |
           docker stop bureaucrat_test || true
+
+      - name: Publish container to dockerhub
+        run: |
+          docker login -u coderookieerick -p ${{ secrets.BUREAUCRAT_TOKEN }}
+          docker tag bureaucrat coderookieerick/bureaucrat
+          docker push coderookieerick/bureaucrat:latest
+
+      - name: Build local bureaucrat
+        run: |
+          docker stop bureaucrat_local || true
+          docker build -t bureaucrat_local --build-arg BUREAUCRAT_API_HOST=https://test.moradev.dev/apps/bureaucrat .
+          docker run -d --rm --name bureaucrat_local -p 19970:19970 bureaucrat_local

@@ -1,2 +1,2 @@
-templates/template.php:site/index.php
+templates/template.html:site/index.html
 templates/template.md:README.md

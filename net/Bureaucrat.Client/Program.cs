@@ -1,5 +1,5 @@
-﻿using Bureaucrat.Core.Connection;
-using Bureaucrat.Network;
+﻿using Bureaucrat.Core.Common;
+using Bureaucrat.Core.Connection;
 using System.Text;
 
 BureaucratServerConnection connection = new(

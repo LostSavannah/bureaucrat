@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Bureaucrat.Core.csproj" />
-    <ProjectReference Include="..\Network\Bureaucrat.Network.csproj" />
   </ItemGroup>
 
 </Project>

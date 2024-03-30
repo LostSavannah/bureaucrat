@@ -12,7 +12,6 @@ class SqliteTables:
                 cursor:sqlite3.Cursor = connection.execute(text)
                 result = [i for i in self.get_dictionary(cursor)]
                 cursor.close()
-                print(result)
                 return result
         except Exception as e:
             print(e)

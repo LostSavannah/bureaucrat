@@ -2,8 +2,6 @@ from typing import Any
 from jinja2 import Template
 import json
 
-data:str = Template("{{ example }}").render(**{"example": "Pedro"})
-
 manifest_location:str = 'templates/manifest.txt'
 data_location:str = 'documentation.json'
 
