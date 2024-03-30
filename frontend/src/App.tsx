@@ -44,7 +44,7 @@ const router = createBrowserRouter([
       }
     ]
   }
-], {basename: import.meta.env.VITE_BASENAME});
+], {basename: import.meta.env.VITE_BASENAME ?? "/apps/bureaucrat"});
 
 export default function App(){
   return <RouterProvider router={router}></RouterProvider>;
