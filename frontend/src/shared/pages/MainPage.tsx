@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 export default function MainPage(){
     return <>
     <div className="w-100 h4 bg-dark p-3 text-light">
-        <img className="p-1 bg-light rounded-circle" width="50" src="/bureaucrat.svg"/>
         <span className="p-3">Bureaucrat</span>
     </div>
     <div className="container">
