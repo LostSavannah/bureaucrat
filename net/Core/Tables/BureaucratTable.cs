@@ -17,8 +17,8 @@ public class BureaucratTable(BureaucratTableService bureaucratTableService, stri
         int currentPage = 0;
         do
         {
-            chunkSize = ChunkSize;
-            chunk = (await Service.GetRows<T>(databaseName, Name, currentPage++, chunkSize)).ToList();
+            chunk.Clear();
+            chunk.AddRange(await Service.GetRows<T>(databaseName, Name, currentPage++, chunkSize));
             foreach (T item in chunk)
             {
                 yield return item;

@@ -20,7 +20,7 @@ jobs:
           cd ..
           docker build -t bureaucrat .
           docker stop bureaucrat_test || true
-          docker run -d --rm --name bureaucrat_test -p 19760:19760 bureaucrat
+          docker run -d --rm --name bureaucrat_test -p 19970:19970 bureaucrat
 
       - name: Test
         run: |

@@ -95,10 +95,8 @@ public class BureaucratTableService(IHttpService httpService) : BureaucratBaseSe
         string query = $"INSERT INTO {tableName}({columns}) VALUES ({values});";
         await ExecuteQuery(databaseName, query);
     }
-
     string SwapQuotes(string source)
     {
-        string token = Guid.NewGuid().ToString();
-        return source.Replace("'", token).Replace("\"", "'").Replace(token, "\"");
+        return source.Replace("'", ServiceId).Replace("\"", "'").Replace(ServiceId, "\"");
     }
 }
