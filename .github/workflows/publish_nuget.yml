@@ -1,8 +1,8 @@
 name: Publish Nuget package
 
 on:
-  push:
-    branches: [ "nuget" ]
+#  push:
+#    branches: [ "nuget" ]
   workflow_dispatch:
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
 
       - name: Test
         run: |
-          dotnet test ./net/Bureaucrat.Test
+          dotnet test ./net/Bureaucrat.Test/Bureaucrat.Test.csproj
 
       - name: Stop container
         if: always()
