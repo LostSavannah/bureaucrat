@@ -22,9 +22,11 @@ jobs:
         working-directory: ./lib
         run: |
           python3 -m venv testenv
+          source testenv/bin/activate
           pip install pytest 
           pip install requests
           pytest
+          deactivate
 
       - name: Stop container
         if: always()
