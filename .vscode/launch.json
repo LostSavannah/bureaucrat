@@ -8,14 +8,14 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "./api/index.py",
+            "program": "${workspaceFolder}/api/index.py",
             "console": "integratedTerminal",
             "justMyCode": true,
             "env": {
-                "BUREAUCRAT_TABLES_DATABASE": "C:\\projects\\personal\\bureaucrat\\default\\tables",
-                "BUREAUCRAT_BLOBS_ROOT": "C:\\projects\\personal\\bureaucrat\\default\\blobs",
-                "BUREAUCRAT_TREES_ROOT": "C:\\projects\\personal\\bureaucrat\\default\\trees",
-                "BUREAUCRAT_STATIC_PATH": "C:\\projects\\personal\\bureaucrat\\frontend\\dist"
+                "BUREAUCRAT_TABLES_DATABASE": "${workspaceFolder}\\default\\tables",
+                "BUREAUCRAT_BLOBS_ROOT": "${workspaceFolder}\\default\\blobs",
+                "BUREAUCRAT_TREES_ROOT": "${workspaceFolder}\\default\\trees",
+                "BUREAUCRAT_STATIC_PATH": "${workspaceFolder}\\frontend\\dist"
             }
         }
     ]

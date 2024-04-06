@@ -1,5 +1,5 @@
 
-[![Bureaucrat](https://github.com/LostSavannah/bureaucrat/actions/workflows/nocturne_build.yml/badge.svg?branch=main)](https://github.com/LostSavannah/bureaucrat/actions/workflows/)
+[![Bureaucrat](https://github.com/LostSavannah/bureaucrat/actions/workflows/publish_image.yml/badge.svg?branch=main)](https://github.com/LostSavannah/bureaucrat/actions/workflows/)
 
 # [Bureaucrat](https://github.com/LostSavannah/bureaucrat)
 simple queues, blobs, tables and trees

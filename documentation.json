@@ -10,6 +10,14 @@
         {
             "href": "https://github.com/LostSavannah/bureaucrat",
             "text": "View in github"
+        },
+        {
+            "href": "https://pypi.org/project/pybureaucrat/",
+            "text": "Python client"
+        },
+        {
+            "href": "https://www.nuget.org/packages/Bureaucrat.Core",
+            "text": "Nuget"
         }
     ],
     "html_paragraphs":[
@@ -167,7 +175,7 @@
     "badges":[
         {
             "title": "Bureaucrat",
-            "action": "nocturne_build",
+            "action": "publish_image",
             "branches": ["main"]
         }
     ]
