@@ -1,10 +1,8 @@
-name: Local auto publish (1am or push)
+name: Local nightly publish
 
 on:
-#  push:
-#    branches: [ "main" ]
   schedule:
-    - cron: "0 5 * * *"
+    - cron: "0 4 * * *"
   workflow_dispatch:
 
 jobs:
