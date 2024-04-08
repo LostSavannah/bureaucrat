@@ -11,7 +11,7 @@ export default function FileUpload({onUpload}:FileUploadProps) {
     const [path, setPath] = useState("");
     async function handleFileUpload(event:React.ChangeEvent<HTMLInputElement>){
         if(event.target.files){
-            let localFiles = {...files};
+            const localFiles = {...files};
             for(let index = 0; index < event.target.files.length; index++){
                 const file = event.target.files[index];
                 const base64 = (await getBase64(file)).split(',')[1];
@@ -21,7 +21,7 @@ export default function FileUpload({onUpload}:FileUploadProps) {
         }
     }
     function removeFile(filename:string){
-        let localFiles = {...files};
+        const localFiles = {...files};
         delete localFiles[filename];
         setFiles({...localFiles});
     }
@@ -31,51 +31,37 @@ export default function FileUpload({onUpload}:FileUploadProps) {
     }
   return (
     <>
-        <div className="container">
-            <div className="row">
-                <h5>Upload</h5>
-            </div>
-            <div className="row">
-                <div className="col-auto">
-                    <div className="form-group">
-                        <label className="btn btn-primary" htmlFor="fileUpload">Select Files</label>
-                        <input style={{
-                            "opacity": 0
-                        }} onChange={handleFileUpload} id="fileUpload" type="file" multiple/>
-                    </div>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-12">
-                    <TableComponent
+        <div className="w-100 d-flex align-items-center">
+            <h5>Upload</h5>
+        </div>
+        <div className="w-100">
+        <TableComponent
                         items={Object.keys(files).map(file => file)}
                         columns={{
-                            "Files": f => <>{f}</>,
-                            "Actions": f => <button 
+                            "Name": f => <>{f}</>,
+                            "": f => <button 
                                 className="btn btn-danger" 
-                                onClick={() => removeFile(f)}>Remove</button>
+                                onClick={() => removeFile(f)}>X</button>
                         }}
                         keySelector={f => f}
                     ></TableComponent>
-                    {}
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-auto">
-                    <div className="form-group">
-                        <input 
-                            className="form-control"
-                            value={path}
-                            onChange={e => setPath(e.target.value)}
-                            placeholder="Upload path"
-                            ></input>
-                    </div>
-                </div>
-                <div className="col-auto">
-                    <button className="btn btn-primary" onClick={upload}>Upload</button>
-                </div>
-            </div>
+                    <input 
+                        style={{display: "none"}} 
+                        onChange={handleFileUpload} id="fileUpload" type="file" multiple/>
         </div>
+        
+        <label className="btn btn-success w-100" htmlFor="fileUpload">Add files...</label>
+        <div className="w-100 d-flex align-items-center">
+            <span className="p-2">Path: </span>
+            <input 
+                className="form-control"
+                value={path}
+                onChange={e => setPath(e.target.value)}
+                placeholder="Upload path"
+                ></input>
+        </div>
+        <button className="btn btn-primary w-100" onClick={upload}>Upload</button>
+        
     </>
   )
 }

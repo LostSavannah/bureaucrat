@@ -53,26 +53,18 @@ export default function BlobsExplorerComponent() {
 
     return (
       <>
-      <h2>Blobs</h2>
-      <FileUpload onUpload={uploadFiles}></FileUpload>
-      <div className="container">
-        <div className="row">
-            <h5>Explore</h5>
+      <h4>Blobs</h4>
+      <div className="w-100">
+        <div className="w-100 d-flex align-items-center">
+            <span className="p-1">📁</span>
+            <input type="text" 
+                onKeyDown={handleOnKeyDown} 
+                onChange={handleOnChange}
+                value={currentDirectory}
+                className="form-control" />
         </div>
-        <div className="row">
-            <div className="col-12">
-                <div className="form-group">
-                  <input type="text" 
-                      onKeyDown={handleOnKeyDown} 
-                      onChange={handleOnChange}
-                      value={currentDirectory}
-                      className="form-control" />
-                </div>                
-            </div>
-        </div>
-        <div className="row">
-            <div className="col-12">
-                <TableComponent
+        <div className="w-100">
+        <TableComponent
                     items={directories}
                     columns={{
                         "Directories": d => 
@@ -82,17 +74,18 @@ export default function BlobsExplorerComponent() {
                         "Actions": d =>
                             !d.isFolder? 
                             <>
-                            <a href={downloadLink(d)} className="btn btn-success">Download</a>
-                            <button onClick={() => handleDeleteBlob(d)} className="btn btn-danger">Delete</button>
+                            <a href={downloadLink(d)} className="btn btn-success">⇩</a>
+                            <button onClick={() => handleDeleteBlob(d)} className="btn btn-danger">X</button>
                             </>
                             :""
                     }}
                     keySelector={getKey}
                 ></TableComponent>
                 {directories.length == 0? <Nothing></Nothing>: ""}
-            </div>
         </div>
+        
       </div>
+      <FileUpload onUpload={uploadFiles}></FileUpload>
       </>
     )
 }

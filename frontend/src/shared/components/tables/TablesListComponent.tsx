@@ -44,11 +44,11 @@ export default function TablesListComponent() {
 
     return (
         <>
-            <h2>Database: {currentDatabase}</h2>
+            <h4>Database: {currentDatabase}</h4>
             <div className="container">
                 <div className="row">
                     <div className="col-3">
-                    <h5>Using database: </h5>
+                    <h6>Using database: </h6>
                     </div>
                     <div className="col-auto">
                         <select onChange={handleChangeDatabase} id="databaseSelect" value={currentDatabase} className="form-control">
@@ -60,7 +60,7 @@ export default function TablesListComponent() {
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <h4>Query</h4>
+                        <h6>Query</h6>
                     </div>
                 </div>
                 <div className="row">

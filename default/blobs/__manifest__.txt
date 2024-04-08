@@ -1,2 +1,1 @@
-readme.txt=/bureaucrat/data/readme.txt
 hyperlinks/readme.txt=/bureaucrat/data/readme.txt

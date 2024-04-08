@@ -51,6 +51,7 @@ export function TreeValueEditor({value, path, setValue}:TreeValueEditorProps){
         return <> &#123; <div className="p-2">{Object.keys(value).map(key => (<>
             <div className="p-2 text-danger"><strong>"{key}":</strong>
                     <TreeValueEditor
+                        key={[...path, key].join("/")}
                         value={value[key]}
                         path={[...path, key]}
                         setValue={setValue}

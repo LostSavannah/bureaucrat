@@ -13,7 +13,7 @@ export default function TableDetailComponent() {
     } = useTableDetailComponent(database!, table!);
     return (
         <>  
-            <h2>Database: {database}</h2>
+            <h4>Database: {database}</h4>
             <div className="container">
                 <div className="row">
                     <h5>Table: {table}</h5>
