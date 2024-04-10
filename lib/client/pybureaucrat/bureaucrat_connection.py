@@ -1,6 +1,6 @@
-from blobs import BlobsService
-from tables import TablesService
-from queues import QueueService
+from .blobs import BlobsService
+from .tables import TablesService
+from .queues import QueueService
 
 class BureaucratConnection:
     def __init__(self, url:str) -> None:
