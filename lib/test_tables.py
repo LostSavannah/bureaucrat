@@ -1,5 +1,5 @@
 import random
-from .client.common.tables import TablesService
+from .client.pybureaucrat.tables import TablesService
 
 baseUrl = "http://localhost:19970"
 
