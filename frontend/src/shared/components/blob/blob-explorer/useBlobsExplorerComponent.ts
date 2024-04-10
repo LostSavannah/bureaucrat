@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { BureaucratBlobsService } from "../../../services/BureaucratBlobsService";
 import { BlobResultIndex } from "../../../types/BlobResult";
 
@@ -24,25 +24,26 @@ export default function useBlobsExplorerComponent(){
 
     function navigateTo(path:string){
         setCurrentDirectory(path);
-        search();
+    }
+
+    const service = useMemo(() => new BureaucratBlobsService(), []);
+
+    function downloadLink(name:string){
+        return service.getDownloadLink(currentPath, name);
     }
 
     async function deleteBlob(path:string){
-        await (new BureaucratBlobsService().deleteFile(path));
-        search();
+        await service.deleteFile(path);
     }
 
     async function uploadFiles(path:string, files:{[key:string]:string}){
-        const service = new BureaucratBlobsService();
         Object.keys(files).forEach(async fileName => {
             await service.uploadFile(`${path}/${fileName}`, files[fileName]);
         });
-        search();
     }
 
     useEffect(() => {
-        new BureaucratBlobsService()
-            .index(currentDirectory)
+        service.index(currentDirectory)
             .then(result => {
                 const path:string[] = result.result.index.path;
                 const index:BlobResultIndex = result.result.index;
@@ -57,7 +58,7 @@ export default function useBlobsExplorerComponent(){
                 })));
                 setDirectories(directories);
             });
-    }, [flag]);
+    }, [currentDirectory, service]);
 
     return{
         directories,
@@ -68,6 +69,7 @@ export default function useBlobsExplorerComponent(){
         setCurrentDirectory,
         navigateTo,
         uploadFiles,
-        deleteBlob
+        deleteBlob,
+        downloadLink
     }
 }

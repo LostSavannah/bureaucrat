@@ -16,4 +16,9 @@ export class BureaucratBlobsService extends BaseHttpService{
     async deleteFile(path:string){
         return await this.delete<Result<string>>(`${this.baseUrl}/blobs/${path}`); 
     }
+
+    getDownloadLink(location:string[], name:string){
+        const path = [...location, name].filter(p => p != "").join("/")
+        return `${this.baseUrl}/blobs/download:${path}`
+    }
 }

@@ -21,7 +21,9 @@ export function choose<T>(items:T[]){
 export function getBase64(file:File){
     return new Promise<string>((resolve, reject) => {
         const fileReader = new FileReader();
-        fileReader.onload = () => {
+
+        fileReader.onload = (progress:ProgressEvent<FileReader>) => {
+            console.log(progress)
             resolve(fileReader.result as string);
         };
         fileReader.onerror = (e) => {

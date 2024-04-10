@@ -1,30 +1,20 @@
-import React from "react";
 import useBlobsExplorerComponent, { BlobDirectory } from "./useBlobsExplorerComponent"
 import Nothing from "../../common/Nothing";
 import FileUpload from "../../fileUpload/FileUpload";
 import TableComponent from "../../table/TableComponent";
+import BlobPath from "../blob-path/BlobPath";
 export default function BlobsExplorerComponent() {
 
-    const {
-        search, 
-        setCurrentDirectory, 
-        currentDirectory,
+    const { 
         currentPath,
         directories,
         navigateTo,
         uploadFiles,
-        deleteBlob
+        deleteBlob,
+        downloadLink
     } = useBlobsExplorerComponent();
 
-    function handleOnKeyDown(event:React.KeyboardEvent<HTMLInputElement>){
-        if(event.key === "Enter"){
-            search();
-        }
-    }
 
-    function handleOnChange(event:React.ChangeEvent<HTMLInputElement>){
-        setCurrentDirectory(event.target.value);
-    }
 
     function getKey(b:BlobDirectory):string{
         return (b.isFolder? "fol.": "doc.") + b.name;
@@ -44,25 +34,12 @@ export default function BlobsExplorerComponent() {
         }
     }
 
-    function downloadLink(d:BlobDirectory){
-        const apiUrl:string = import.meta.env.VITE_API_URL;
-        const baseName:string = import.meta.env.VITE_BASENAME;
-        const baseUrl:string = `${apiUrl}${baseName}/download:`;
-        return baseUrl + [...currentPath, d.name].join("/");
-    }
-
     return (
       <>
       <h4>Blobs</h4>
       <div className="w-100">
-        <div className="w-100 d-flex align-items-center">
-            <span className="p-1">📁</span>
-            <input type="text" 
-                onKeyDown={handleOnKeyDown} 
-                onChange={handleOnChange}
-                value={currentDirectory}
-                className="form-control" />
-        </div>
+        
+        <BlobPath currentPath={currentPath} navigateTo={navigateTo}/>
         <div className="w-100">
         <TableComponent
                     items={directories}
@@ -74,7 +51,7 @@ export default function BlobsExplorerComponent() {
                         "Actions": d =>
                             !d.isFolder? 
                             <>
-                            <a href={downloadLink(d)} className="btn btn-success">⇩</a>
+                            <a href={downloadLink(d.name)} className="btn btn-success">⇩</a>
                             <button onClick={() => handleDeleteBlob(d)} className="btn btn-danger">X</button>
                             </>
                             :""
