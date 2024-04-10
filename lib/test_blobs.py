@@ -1,7 +1,7 @@
 import uuid
 import random
 from typing import Iterator
-from .client.common.blobs import BlobsService, BlobsIndex
+from .client.pybureaucrat.blobs import BlobsService, BlobsIndex
 
 baseUrl = "http://localhost:19970"
 

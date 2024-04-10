@@ -1,5 +1,5 @@
 import uuid
-from .client.common.queues import QueueService
+from .client.pybureaucrat.queues import QueueService
 
 baseUrl = "http://localhost:19970"
 
