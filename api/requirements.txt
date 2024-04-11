@@ -2,3 +2,8 @@ fastapi
 uvicorn
 requests
 pytest
+jinja2
+xhtml2pdf
+htmldocx
+docx
+mako

@@ -28,6 +28,7 @@ FROM python:latest as main
 WORKDIR /bureaucrat
 
 ENV BUREAUCRAT_TABLES_DATABASE=/bureaucrat/data/tables
+ENV BUREAUCRAT_TEMPLATES_DATABASE=/bureaucrat/data/templating/templates.db
 ENV BUREAUCRAT_BLOBS_ROOT=/bureaucrat/data/blobs
 ENV BUREAUCRAT_TREES_ROOT=/bureaucrat/data/trees
 ENV BUREAUCRAT_STATIC_PATH=/bureaucrat/frontend
