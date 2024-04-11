@@ -28,7 +28,7 @@ export default function TreeExplorerComponent() {
 
     return (
         <>
-            <h2>Forest: {currentForest}</h2>
+            <h4>Forest: {currentForest}</h4>
             <div className="container">
                 <div className="row">
                     <h5>Tree: {currentTree}</h5>

@@ -34,31 +34,41 @@ export default function useBlobsExplorerComponent(){
 
     async function deleteBlob(path:string){
         await service.deleteFile(path);
+        refresh();
     }
 
     async function uploadFiles(path:string, files:{[key:string]:string}){
-        Object.keys(files).forEach(async fileName => {
+        await Promise.all(Object.keys(files).map(async fileName => {
             await service.uploadFile(`${path}/${fileName}`, files[fileName]);
+        }));
+        refresh();
+    }
+
+    function refresh(){
+        service.index(currentDirectory)
+        .then(result => {
+            const path:string[] = result.result.index.path;
+            const index:BlobResultIndex = result.result.index;
+            setExists(index.status == 200);
+            setCurrentPath(path);
+            const directories:BlobDirectory[] = index.files.map(file => ({
+                name: file, 
+                isFolder: false
+            })).concat(index.folders.map(file => ({
+                name: file, 
+                isFolder: true
+            })));
+            setDirectories(directories);
+        }).catch(() => {
+            const path = currentDirectory.split("/");
+            if(path.length > 0){
+                path.pop()
+                setCurrentDirectory(path.join("/"))
+            }
         });
     }
 
-    useEffect(() => {
-        service.index(currentDirectory)
-            .then(result => {
-                const path:string[] = result.result.index.path;
-                const index:BlobResultIndex = result.result.index;
-                setExists(index.status == 200);
-                setCurrentPath(path);
-                const directories:BlobDirectory[] = index.files.map(file => ({
-                    name: file, 
-                    isFolder: false
-                })).concat(index.folders.map(file => ({
-                    name: file, 
-                    isFolder: true
-                })));
-                setDirectories(directories);
-            });
-    }, [currentDirectory, service]);
+    useEffect(refresh, [currentDirectory, service]);
 
     return{
         directories,
