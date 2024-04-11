@@ -95,3 +95,15 @@ async def get_tree(forest:str, tree:str, fullpath:str, request:Request):
     return{
         "result": fullpath
     }
+
+@router.delete("/{forest}/{tree}/{fullpath:path}")
+async def remove_tree(forest:str, tree:str, fullpath:str):
+    if forest not in trees:
+        trees[forest] = dict()
+    if tree not in trees[forest]:
+        trees[forest][tree] = Tree(ROOT, forest, tree)
+    path = fullpath.split("/")
+    trees[forest][tree].remove_node(path)
+    return {
+        "result": "Ok"
+    }

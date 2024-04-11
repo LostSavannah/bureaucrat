@@ -13,7 +13,8 @@ export default function TreeExplorerComponent() {
         currentPath,
         setCurrentPath,
         currentItem,
-        setValue
+        setValue,
+        removeValue
     } = useTreeExplorerComponent({initialForest: forest!, initialTree: tree!});
 
     function onNavigate(path:string){
@@ -21,7 +22,6 @@ export default function TreeExplorerComponent() {
     }
 
     function onSetValue(value:TreeValue, path:string[]){
-        console.log(value);
         //console.log(path);
         setValue(value, path)
     }
@@ -43,10 +43,12 @@ export default function TreeExplorerComponent() {
                     </div>
                 </div>
                 <div className="row">
+                    <h5>Nodes of {currentPath.join("/")}</h5>
                     <TreeValueEditor
                         value={currentItem}
                         path={[...currentPath]}
                         setValue={onSetValue}
+                        removeValue={removeValue}
                     ></TreeValueEditor>
                 </div>
             </div>

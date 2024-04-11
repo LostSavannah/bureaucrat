@@ -29,4 +29,9 @@ export class BureaucratTreesService extends BaseHttpService{
         const url:string = `${this.baseUrl}/trees/${forest}/${tree}/${path}`
         return await this.post<TreeValue, Result<string>>(url, value, true);
     }
+
+    async removeValue(forest:string, tree:string, path:string){
+        const url:string = `${this.baseUrl}/trees/${forest}/${tree}/${path}`
+        return await this.delete<Result<string>>(url);
+    }
 }

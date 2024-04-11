@@ -30,7 +30,6 @@ class Tree:
             json.dump(self.root, fo)
 
     def node(self, path:list[str], root:Node = None, item:Node = None, current_path:str = '$'):
-        print(path)
         if root == None:
             root = self.root
         if len(path) == 0:
@@ -46,9 +45,10 @@ class Tree:
                 raise Exception(f"Node {current_path} is not a list")
             elif item is not None:
                 if len(path) == 0:
-                    while len(root) <= current:
-                        root.append(None)    
-                    root[current] = item
+                    if len(root) <= current:
+                        root.append(item)
+                    else:
+                        root[current] = item
                 else:
                     return self.node(path, root[current], item, '/'.join([current_path, str(current)]))
             elif len(root) < current:
@@ -69,6 +69,39 @@ class Tree:
             else:
                 return self.node(path, root[current], item, '/'.join([current_path, str(current)]))
         self.save()
+
+    def remove_node(self, path:list[str], root:Node = None, current_path:str = '$'):
+        if root == None:
+            root = self.root        
+        current:Union[str, int]
+        current, *path = path
+        if current == '$':
+            return self.remove_node(path, root, '/'.join([current_path, str(current)]))
+        if re.match('^[\d]+$', current):
+            current = int(current)
+        if len(path) == 0:
+            del root[current]
+            self.save()
+            return
+
+        
+        if isinstance(current, int):
+            if not isinstance(root, list):
+                raise Exception(f"Node {current_path} is not a list")
+            elif len(root) < current:
+                raise Exception(f"Index {current} not in node {current_path}")
+            else:
+                self.remove_node(path, root[current], '/'.join([current_path, str(current)]))
+                return
+        else:
+            if not isinstance(root, dict):
+                raise Exception(f"Node {current_path} is not a dictionary")
+            elif not current in root:
+                raise Exception(f"Index {current} not in node {current_path}")
+            else:
+                self.remove_node(path, root[current], '/'.join([current_path, str(current)]))
+                return
+
 
 def get_forests(root:str):
     return [i for i in os.listdir(root) if os.path.isdir(os.sep.join([root, i]))]

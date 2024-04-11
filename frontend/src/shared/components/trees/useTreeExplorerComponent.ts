@@ -59,6 +59,13 @@ export default function useTreeExplorerComponent({initialForest, initialTree}:Us
         updateValue();
     }
 
+    async function removeValue(path:string[]){
+        const service = new BureaucratTreesService();
+        await service.removeValue(currentForest, currentTree, path.join('/'));
+        updateIndex();
+        updateValue();
+    }
+
     return{
         forests,
         trees,
@@ -70,6 +77,7 @@ export default function useTreeExplorerComponent({initialForest, initialTree}:Us
         setCurrentForest,
         setCurrentTree,
         setCurrentPath,
-        setValue
+        setValue,
+        removeValue
     }
 }

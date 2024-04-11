@@ -11,12 +11,11 @@ export default function TreeIndexListView({index, onNavigate, selectedPath}:Tree
         <ul key={key}>
             {typeof index.value === "string" ? 
             <>{index.value}</> : 
-            index.value.map((value, i) =><a
+            index.value.map((value, i) =><button
                 key={i}
-                href="#"
-                    className={"d-block " + (selectedPath == undefined? "text-info" : selectedPath == value ? "text-primary": "text-secondary")}
+                    className={"d-block btn badge text-bg-" + (selectedPath == undefined? "info" : selectedPath == value ? "primary": "secondary")}
                     onClick={() => onNavigate(`${index.path}/${value}`)}
-                >{index.kind === "list" ? parseInt(value)+1 : value}</a>)}
+                >{index.kind === "list" ? `[${value}]` : value}</button>)}
         </ul>
     </div>
 }
