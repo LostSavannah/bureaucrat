@@ -24,7 +24,7 @@ export default function QueueDetailComponent(){
     }
 
     return <>
-        <h2>Queue: {name}</h2>
+        <h4>Queue: {name}</h4>
         <div className="card">
             <div className="card-body">
                 <h5 className="card-title">

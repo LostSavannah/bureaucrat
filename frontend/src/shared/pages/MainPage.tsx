@@ -20,6 +20,10 @@ export default function MainPage(){
             location: "/trees-page/default/default",
             text: "Trees 🌳"
         },
+        {
+            location: "/templates-page",
+            text: "Templates 🎨"
+        },
     ]
     return <>
     <div className="w-100 h4 bg-dark p-3 text-light">

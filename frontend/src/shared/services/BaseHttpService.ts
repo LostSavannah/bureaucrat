@@ -43,6 +43,20 @@ export default class BaseHttpService{
         });
     }
     
+
+    protected put<T, TResult>(url:string, parameter:string|T, forceJson:boolean = false):Promise<TResult>{
+        return new Promise<TResult>((resolve, reject) => {
+            fetch(url, {
+                method: "put",
+                body: !forceJson && typeof parameter === "string" ? parameter :  JSON.stringify(parameter)
+            }).then(response => {
+                response.json()
+                    .then(result => resolve(result as TResult))
+                    .catch(reject);
+            }).catch(reject);
+        });
+    }
+    
     protected delete<TResult>(url:string):Promise<TResult>{
         return new Promise<TResult>((resolve, reject) => {
             fetch(url, {
