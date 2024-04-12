@@ -19,6 +19,7 @@ export default function TemplatesListComponent() {
             <h4>Templates</h4>
                 <div className="w-100 d-flex">
                     <input 
+                        placeholder="Insert a new path and press [+] to create a new template"
                         className="flex-grow-1" 
                         onChange={e => setNewTemplateName(e.target.value)}
                         value={newTemplateName}

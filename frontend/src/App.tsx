@@ -22,7 +22,7 @@ export default function App(){
                 <Route path="/tables-page/:database/:table" element={<TableDetailPage/>}></Route>
                 <Route path="/trees-page/:forest/:tree" element={<TreesExplorerPage/>}></Route>
                 <Route path="/templates-page" element={<TemplatesPage/>}></Route>
-                <Route path="/templates-page/:template*" element={<TemplateRenderPage/>}></Route>
+                <Route path="/templates-page/:template/*" element={<TemplateRenderPage/>}></Route>
             </Route>
       </Routes>
   </BrowserRouter>

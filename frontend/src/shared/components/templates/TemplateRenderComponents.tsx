@@ -43,7 +43,7 @@ export default function TemplateRenderComponents({template}:{template:string}) {
                     </div>
                     <button onClick={() =>doRender(
                         template, render, parser, data
-                    )} className="btn btn-danger">Render</button>
+                    )} className="btn btn-danger">Execute</button>
                 </div>
                 <div className="flex-grow-1 h-100 p-2">
                 <textarea

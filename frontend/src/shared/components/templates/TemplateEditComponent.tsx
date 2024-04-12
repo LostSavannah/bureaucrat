@@ -17,12 +17,12 @@ export default function TemplateEditComponent({template}:TemplateEditComponentPr
   }
   return (
     <div className="d-flex flex-column w-100 h-100">
-        <h5>{getTemplateName()}</h5>
-        <div>
+        <h4>{getTemplateName()}</h4>
+        <div className="d-flex justify-content-between">
             <button onClick={() => save()} className="btn btn-success">Update</button>
             <button
                 onClick={() => navigate(`/templates-page/${template}`)} 
-                className="btn btn-danger">Run</button>
+                className="btn btn-primary">Use this template</button>
         </div>
         <textarea 
             onChange={e => setTemplateContent(e.target.value)}
