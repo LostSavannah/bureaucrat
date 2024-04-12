@@ -53,4 +53,10 @@ internal class CommandLine
     {
         Console.WriteLine("this is the help");
     }
+
+    [Command("tables")]
+    public static void Tables()
+    {
+
+    }
 }

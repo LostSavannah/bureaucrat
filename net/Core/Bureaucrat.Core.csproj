@@ -11,5 +11,8 @@
   <ItemGroup>
     <None Include="docs\README.MD" Pack="true" PackagePath="\" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Templates\" />
+  </ItemGroup>
 
 </Project>

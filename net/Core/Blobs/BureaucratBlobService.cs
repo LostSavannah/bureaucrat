@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Bureaucrat.Core.Blobs;
 
-public class BureaucratBlobService(IHttpService httpService) : BureaucratBaseService(httpService, "blobs")
+public class BureaucratBlobService(IHttpService httpService) : BureaucratService(httpService, "blobs")
 {
     public Encoding DefaultEncoding { get; set; } = Encoding.UTF8;
     public async Task<byte[]> GetBlobContent(string path) =>

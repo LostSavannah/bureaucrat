@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Bureaucrat.Core.Tables;
 
-public class BureaucratTableService(IHttpService httpService) : BureaucratBaseService(httpService, "tables")
+public class BureaucratTableService(IHttpService httpService) : BureaucratService(httpService, "tables")
 {
     public async Task<IEnumerable<BureaucratDatabase>> GetDatabases() =>
         (await GetDatabasesNames())

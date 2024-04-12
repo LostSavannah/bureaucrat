@@ -1,9 +1,8 @@
 ﻿using Bureaucrat.Core.Common;
-using System.Text.Json;
 
 namespace Bureaucrat.Core.Queuing;
 
-public class BureaucratQueueService(IHttpService httpService): BureaucratBaseService(httpService, "queues")
+public class BureaucratQueueService(IHttpService httpService): BureaucratService(httpService, "queues")
 {
     public async Task<IEnumerable<BureaucratQueue>> GetQueues()
     {
