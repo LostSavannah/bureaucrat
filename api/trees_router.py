@@ -72,14 +72,14 @@ async def get_tree(forest:str, tree:str, fullpath:str):
     try:
         path = fullpath.split("/")
         return{
-            "result": trees[forest][tree].node(path)
+            "result": trees[forest][tree].get_node(path)
         }
     except Exception as e:
         raise HTTPException(400, str(e))
 
     
 @router.post("/{forest}/{tree}/{fullpath:path}")
-async def get_tree(forest:str, tree:str, fullpath:str, request:Request):
+async def set_tree(forest:str, tree:str, fullpath:str, request:Request):
     content:str = (await request.body()).decode()
     node:Node = None
     try:
@@ -91,7 +91,7 @@ async def get_tree(forest:str, tree:str, fullpath:str, request:Request):
     if tree not in trees[forest]:
         trees[forest][tree] = Tree(ROOT, forest, tree)
     path = fullpath.split("/")
-    trees[forest][tree].node(path, item=node)
+    trees[forest][tree].set_node(path, node)
     return{
         "result": fullpath
     }

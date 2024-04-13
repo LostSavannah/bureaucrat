@@ -5,6 +5,15 @@ import os
 
 Node = dict[str, Union['Node', list['Node'], str]]
 
+def is_number(data:str) -> bool:
+    if re.match('^[\d]+$', data):
+        return True
+    return False
+
+def split_path(path:list[str]) -> tuple[Union[str, int], list[str]]:
+    current, *result_path = path
+    return (current if not is_number(current) else int(current)), result_path
+
 class Tree:
     def __init__(self, root:str, forest:str, name:str) -> None:
         self.root_folder:str = root
@@ -29,6 +38,59 @@ class Tree:
         with open(filename, 'w') as fo:
             json.dump(self.root, fo)
 
+    def get_node(self, path:list[str], root:Node = None, current_path:str = "$"):
+        root = root or self.root
+        if len(path) == 0:
+            return root
+        current, path = split_path(path)
+        if current == "$":
+            return self.get_node(path, root, current_path)
+        if isinstance(current, int):
+            return self.get_list_node(current, path, root, current_path)
+        else:
+            return self.get_dict_node(current, path, root, current_path)
+
+    def get_list_node(self, current:int, path:list[str], root:Node, current_path:str):
+        if not isinstance(root, list):
+            raise Exception(f"Node {current_path} is not a list")
+        elif len(root) < current:
+            raise Exception(f"Index {current} not in node {current_path}")
+        else:
+            return self.get_node(path, root[current], '/'.join([current_path, str(current)]))
+        
+    def get_dict_node(self, current:str, path:list[str], root:Node, current_path:str):
+        if not isinstance(root, dict):
+            raise Exception(f"Node {current_path} is not a dict")
+        elif not current in root:
+            raise Exception(f"Index {current} not in node {current_path}")
+        else:
+            return self.get_node(path, root[current], '/'.join([current_path, str(current)]))
+
+    def set_node(self, path:list[str], item:Node, root:Node = None, current_path:str = '$'):
+        root = root or self.root
+        if len(path) == 0:
+            return
+        current, path = split_path(path)
+        if current == "$":
+            return self.set_node(path, item, root, current_path)
+        if isinstance(current, int):
+            if not isinstance(root, list):
+                raise Exception(f"Node {current_path} is not a list")
+            while len(root) <= current:
+                root.append(None)
+            if root[current] == None:
+                root[current] = ([] if is_number(path[0]) else dict())
+        elif isinstance(current, str):
+            if not isinstance(root, dict):
+                raise Exception(f"Node {current_path} is not a dict")
+            if current not in root and len(path) > 0:
+                root[current] = ([] if is_number(path[0]) else dict())
+        if len(path) == 0:
+            root[current] = item
+            self.save()
+            return
+        return self.set_node(path, item, root[current], '/'.join([current_path, str(current)])) 
+        
     def node(self, path:list[str], root:Node = None, item:Node = None, current_path:str = '$'):
         if root == None:
             root = self.root
@@ -83,8 +145,6 @@ class Tree:
             del root[current]
             self.save()
             return
-
-        
         if isinstance(current, int):
             if not isinstance(root, list):
                 raise Exception(f"Node {current_path} is not a list")
