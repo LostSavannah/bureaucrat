@@ -39,7 +39,7 @@ class Tree:
             json.dump(self.root, fo)
 
     def get_node(self, path:list[str], root:Node = None, current_path:str = "$"):
-        root = root or self.root
+        root = self.root if root is None else root
         if len(path) == 0:
             return root
         current, path = split_path(path)
@@ -67,7 +67,7 @@ class Tree:
             return self.get_node(path, root[current], '/'.join([current_path, str(current)]))
 
     def set_node(self, path:list[str], item:Node, root:Node = None, current_path:str = '$'):
-        root = root or self.root
+        root = self.root if root is None else root
         if len(path) == 0:
             return
         current, path = split_path(path)
@@ -76,19 +76,26 @@ class Tree:
         if isinstance(current, int):
             if not isinstance(root, list):
                 raise Exception(f"Node {current_path} is not a list")
-            while len(root) <= current:
-                root.append(None)
-            if root[current] == None:
-                root[current] = ([] if is_number(path[0]) else dict())
+            if len(path) == 0:
+                if current > len(root):
+                    root.append(item)
+                else:
+                    root[current] = item
+                self.save()
+                return
+            if current > len(root):
+                current = len(root)
+                root.append([] if is_number(path[0]) else dict())
         elif isinstance(current, str):
             if not isinstance(root, dict):
                 raise Exception(f"Node {current_path} is not a dict")
-            if current not in root and len(path) > 0:
+            if len(path) == 0:
+                root[current] = item
+                self.save()
+                return
+            elif current not in root and len(path) > 0:
                 root[current] = ([] if is_number(path[0]) else dict())
-        if len(path) == 0:
-            root[current] = item
-            self.save()
-            return
+
         return self.set_node(path, item, root[current], '/'.join([current_path, str(current)])) 
         
     def node(self, path:list[str], root:Node = None, item:Node = None, current_path:str = '$'):
