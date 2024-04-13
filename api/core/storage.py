@@ -4,6 +4,11 @@ import os
 
 MANIFEST_FILE_NAME = "__manifest__.txt"
 DATA_FOLDER = "data"
+SEPARATOR = " <=> "
+
+def map_path(path:str):
+    *logical, physical = path.strip().split(SEPARATOR)
+    return [SEPARATOR.join(logical), physical]
 
 class Storage:
     def __init__(self, base_path:str) -> None:
@@ -31,7 +36,7 @@ class Storage:
         async with self.lock:
             files:dict[str, str] = dict()
             with open(self.manifest, 'r') as fi:
-                files = {a[0]:a[1] for a in [i.strip().split("=") for i in fi.readlines()]}
+                files = {a[0]:a[1] for a in [map_path(i) for i in fi.readlines()]}
             if not path in files:
                 if error_on_not_found:
                     raise Exception(f"File '{path}' not found")
@@ -42,13 +47,13 @@ class Storage:
                 if remove:
                     del files[path]
                 with open(self.manifest, 'w') as fo:
-                    fo.writelines([f"{i}={files[i]}\n" for i in files])
+                    fo.writelines([f"{i}{SEPARATOR}{files[i]}\n" for i in files])
             return result
 
     async def get_files(self) -> dict[str, str]:
         async with self.lock:
             with open(self.manifest, 'r') as fi:
-                return {a[0]:a[1] for a in [i.strip().split("=") for i in fi.readlines()]}
+                return {a[0]:a[1] for a in [map_path(i)for i in fi.readlines()]}
 
     async def write_file(self, path:str, content:bytes):
         file_name:str = await self.get_file_path(path)
