@@ -9,6 +9,9 @@ import TableDetailPage from "./shared/pages/TableDetailPage";
 import TreesExplorerPage from "./shared/pages/TreesExplorerPage";
 import TemplatesPage from "./shared/pages/TemplatesPage";
 import TemplateRenderPage from "./shared/pages/TemplateRenderPage";
+import WorkersListPage from "./shared/pages/WorkersListPage";
+import WorkerKindPage from "./shared/pages/WorkerKindPage";
+import WorkerPage from "./shared/pages/WorkerPage";
 
 export default function App(){
   return <BrowserRouter basename={import.meta.env.VITE_BASENAME}>
@@ -23,6 +26,9 @@ export default function App(){
                 <Route path="/trees-page/:forest/:tree" element={<TreesExplorerPage/>}></Route>
                 <Route path="/templates-page" element={<TemplatesPage/>}></Route>
                 <Route path="/templates-page/:template/*" element={<TemplateRenderPage/>}></Route>
+                <Route path="/workers-page" element={<WorkersListPage/>}></Route>
+                <Route path="/workers-page/:kind" element={<WorkerKindPage/>}></Route>
+                <Route path="/workers-page/:kind/:id" element={<WorkerPage/>}></Route>
             </Route>
       </Routes>
   </BrowserRouter>

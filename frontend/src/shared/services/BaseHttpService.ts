@@ -32,10 +32,18 @@ export default class BaseHttpService{
 
     protected post<T, TResult>(url:string, parameter:string|T, forceJson:boolean = false):Promise<TResult>{
         return new Promise<TResult>((resolve, reject) => {
-            fetch(url, {
+            const requestInit:RequestInit = {
                 method: "post",
                 body: !forceJson && typeof parameter === "string" ? parameter :  JSON.stringify(parameter)
-            }).then(response => {
+            }
+
+            if(typeof parameter !== "string"){
+                requestInit.headers = {
+                    "Content-Type": "application/json"
+                }
+            }
+
+            fetch(url, requestInit).then(response => {
                 response.json()
                     .then(result => resolve(result as TResult))
                     .catch(reject);
@@ -67,5 +75,9 @@ export default class BaseHttpService{
                     .catch(reject);
             }).catch(reject);
         });
+    }
+
+    protected listen(url:string):EventSource{
+        return new EventSource(url);
     }
 }

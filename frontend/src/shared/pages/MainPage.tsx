@@ -24,6 +24,10 @@ export default function MainPage(){
             location: "/templates-page",
             text: "Templates 🎨"
         },
+        {
+            location: "/workers-page",
+            text: "Workers ⚙"
+        },
     ]
     return <>
     <div className="w-100 h4 bg-dark p-3 text-light">

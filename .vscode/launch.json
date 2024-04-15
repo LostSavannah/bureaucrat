@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Python: Current File",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/api/index.py",
             "console": "integratedTerminal",
@@ -16,7 +16,11 @@
                 "BUREAUCRAT_TEMPLATES_DATABASE": "${workspaceFolder}\\default\\templating\\templates.db",
                 "BUREAUCRAT_BLOBS_ROOT": "${workspaceFolder}\\default\\blobs",
                 "BUREAUCRAT_TREES_ROOT": "${workspaceFolder}\\default\\trees",
-                "BUREAUCRAT_STATIC_PATH": "${workspaceFolder}\\frontend\\dist"
+                "BUREAUCRAT_STATIC_PATH": "${workspaceFolder}\\frontend\\dist",
+                "BUREAUCRAT_WORKERS_ROOT": "${workspaceFolder}\\api",
+                "BUREAUCRAT_WORKERS_PACKAGE": "workers",
+                "BUREAUCRAT_API_HOST": "0.0.0.0",
+                "BUREAUCRAT_API_PORT": "19970"
             }
         }
     ]
