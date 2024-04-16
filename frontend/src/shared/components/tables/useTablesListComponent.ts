@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import { BureaucratTablesService, QueryResult } from "../../services/BureaucratTablesService";
+import { BureaucratTablesService } from "../../services/BureaucratTablesService";
+import { Dict } from "../../types/Common";
 
 export interface UseTablesListComponentProps{
     database:string
@@ -11,11 +12,11 @@ export default function useTablesListComponent({database}:UseTablesListComponent
     const [databases, setDatabases] = useState<string[]>([]);
     const [index, setIndex] = useState(0);
     const [query, setQuery] = useState("");
-    const [result, setResult] = useState<QueryResult>([]);
+    const [result, setResult] = useState<Dict[]>([]);
     const [history, setHistory] = useState<string[]>([]);
 
     function saveHistory(){
-        let localHistory = [query, ...history.filter(i => i != query)];
+        const localHistory = [query, ...history.filter(i => i != query)];
         while(localHistory.length > 10){
             history.pop();
         }
