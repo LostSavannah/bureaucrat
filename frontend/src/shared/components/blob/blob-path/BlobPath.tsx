@@ -12,7 +12,7 @@ export default function BlobPath({currentPath, navigateTo}:{
     <div className="w-100 d-flex align-items-center">
     <span className="p-1" onClick={() => navigateTo("/")}>📁</span>
         <div>
-            {getPaths().map(p => <>/ <span className="badge text-bg-warning" onClick={() => navigateTo(p.path)}>{p.name}</span></>)}
+            {getPaths().map(p => <span key={p.path}>/ <span className="badge text-bg-warning" onClick={() => navigateTo(p.path)}>{p.name}</span></span>)}
         </div>
     </div>
   )

@@ -125,20 +125,19 @@ export function TreeValueEditor({value, path, setValue, removeValue}:TreeValueEd
                 </div>
                 {
                     expanded && <div>
-                    {Object.keys(value).map(key => (<>
-                    <div className="p-3">
+                    {Object.keys(value).map(key => (
+                    <div className="p-3" key={[...path, key].join("/")}>
                         <div className="d-flex justify-content-begin">
                             <span className="badge text-bg-primary">"{key}"</span>
                         </div>
                         <TreeValueEditor
-                            key={[...path, key].join("/")}
                             value={value[key]}
                             path={[...path, key]}
                             setValue={setValue}
                             removeValue={removeValue}
                         ></TreeValueEditor>
                     </div> 
-                </>))} 
+                    ))} 
                     </div>
                 }
         </div></>;

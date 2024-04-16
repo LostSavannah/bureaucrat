@@ -7,7 +7,7 @@ export default function WorkersKindList() {
           <div className="w-100">
               <h4>Workers</h4>
               <div className="d-flex w-100 flex-wrap">
-                  {workers.map(kind => <WorkerKindView kind={kind}/>)}
+                  {workers.map(kind => <WorkerKindView key={kind} kind={kind}/>)}
               </div>
           </div>
       </>

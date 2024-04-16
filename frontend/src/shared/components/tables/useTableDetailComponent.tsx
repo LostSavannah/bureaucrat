@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { BureaucratTablesService, QueryResult } from "../../services/BureaucratTablesService";
+import { BureaucratTablesService } from "../../services/BureaucratTablesService";
+import { Dict } from "../../types/Common";
 
 
 export default function useTableDetailComponent(initialDatabase:string, initialTable:string){
@@ -7,7 +8,7 @@ export default function useTableDetailComponent(initialDatabase:string, initialT
     const [table, setTable] = useState<string>(initialTable);
     const [pageNumber, setPageNumber] = useState(0);
     const [pageSize, setPageSize] = useState(10);
-    const [result, setResult] = useState<QueryResult>([]);
+    const [result, setResult] = useState<Dict[]>([]);
 
     useEffect(() => {
         new BureaucratTablesService()

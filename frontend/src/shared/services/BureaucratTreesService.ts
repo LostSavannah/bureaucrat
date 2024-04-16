@@ -8,7 +8,7 @@ export class BureaucratTreesService extends BaseHttpService{
     }
 
     async getForests(){
-        return await this.get<Result<string[]>>(`${this.baseUrl}/trees`);
+        return await this.get<Result<string[]>>(`${this.baseUrl}/trees/`);
     }
 
     async getTrees(forest:string){

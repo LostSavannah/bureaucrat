@@ -7,35 +7,35 @@ export class BureaucratWorkersService extends BaseHttpService{
         super();
     }
 
-    listWorkerKinds(){
-        return this.get<string[]>(`${this.baseUrl}/workers`);
+    async listWorkerKinds(){
+        return await this.get<string[]>(`${this.baseUrl}/workers/`);
     }
 
-    listWorkersOfKind(kind:string){
-        return this.get<string[]>(`${this.baseUrl}/workers/${kind}`);
+    async listWorkersOfKind(kind:string){
+        return await this.get<string[]>(`${this.baseUrl}/workers/${kind}`);
     }
 
-    getWorker(kind:string, id:string){
-        return this.get<WorkerStatus>(`${this.baseUrl}/workers/${kind}/${id}`);
+    async getWorker(kind:string, id:string){
+        return await this.get<WorkerStatus>(`${this.baseUrl}/workers/${kind}/${id}`);
     }
 
-    createWorker(kind:string){
-        return this.post<null, WorkerStatus>(`${this.baseUrl}/workers/${kind}/create`, null);
+    async createWorker(kind:string){
+        return await this.post<null, WorkerStatus>(`${this.baseUrl}/workers/${kind}/create`, null);
     }
 
-    getKindStatistics(kind:string){
-        return this.get<KindStatistics>(`${this.baseUrl}/workers/${kind}/statistics`);
+    async getKindStatistics(kind:string){
+        return await this.get<KindStatistics>(`${this.baseUrl}/workers/${kind}/statistics`);
     }
 
-    deleteWorker(kind:string, id:string){
-        return this.delete<{id:string}>(`${this.baseUrl}/workers/${kind}/${id}`);
+    async deleteWorker(kind:string, id:string){
+        return await this.delete<{id:string}>(`${this.baseUrl}/workers/${kind}/${id}`);
     }
 
-    sendCommand(kind:string, id:string, command:string, params:Dict){
-        return this.post<Dict, WorkerStatus>(`${this.baseUrl}/workers/${kind}/${id}/${command}`, params);
+    async sendCommand(kind:string, id:string, command:string, params:Dict){
+        return await this.post<Dict, WorkerStatus>(`${this.baseUrl}/workers/${kind}/${id}/${command}`, params);
     }
 
-    recycle(kind:string, id:string){
+    async recycle(kind:string, id:string){
         return this.post<Dict, WorkerStatus>(`${this.baseUrl}/workers/${kind}/${id}/recycle`, {});
     }
 

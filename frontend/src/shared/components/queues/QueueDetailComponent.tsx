@@ -12,7 +12,8 @@ export default function QueueDetailComponent(){
         next, 
         current,
         setCurrentNew,
-        enqueue
+        enqueue,
+        messages
     } = useQueueDetailComponent(queueName!);
     
     function onDequeue(){
@@ -25,38 +26,52 @@ export default function QueueDetailComponent(){
 
     return <>
         <h4>Queue: {name}</h4>
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">
-                    Dequeue
-                </h5>
-                <div className="form-group">
-                    <label htmlFor="">Dequeue mode:</label>
-                    <Combo
-                        items={[true, false]}
-                        fromString={e => (e === "requeue")}
-                        toStringV={e => e ? "requeue" : "discard"}
-                        value={requeue}
-                        getDescription={e => e ? "Requeue": "Discard"}
-                        onChange={setRequeue}
-                    ></Combo>
-                </div>
-                <button onClick={onDequeue} className='btn btn-primary'>Dequeue</button>
-                <div className="form-group">
-                    {current ? <textarea className='form-control' value={current}></textarea>: <Nothing></Nothing>}
-                </div>
-            </div>
-         </div>
-        <div className="card">
+            <div className="card">
             <div className="card-body">
                 <h5 className="card-title">
                     Enqueue
                 </h5>
                 <div className="form-group">
-                    <textarea onChange={onCurrentNewChange} className='form-control'></textarea>
+                    <textarea
+                        placeholder="Paste or type here the data to be enqueued"  
+                        onChange={onCurrentNewChange} className='form-control'></textarea>
                 </div>
-                <button onClick={enqueue} className='btn btn-primary'>Enqueue</button>
+                <div className="d-flex align-items-center justify-content-end">
+                <button onClick={enqueue} className='btn btn-primary'>Enqueue ▲</button>
+                </div>
             </div>
         </div>
+        <div className="card">
+            <div className="card-body">
+                <h5 className="card-title">
+                    Dequeue
+                </h5>
+                <div className="d-flex align-items-center justify-content-between">
+                    <div className="w-50 d-flex">
+                    <Combo
+                        items={[true, false]}
+                        fromString={e => (e === "requeue")}
+                        toStringV={e => e ? "requeue" : "discard"}
+                        value={requeue}
+                        getDescription={e => e ? "Requeue values": "Discard values"}
+                        onChange={setRequeue}
+                    ></Combo>
+                    </div>
+
+                    <button onClick={onDequeue} className={"btn btn-" + (requeue? "warning": "danger")}>Dequeue ▼</button>
+                </div>
+                <div className="form-group">
+                    {current ? <>
+                    <textarea readOnly className='form-control' value={current}></textarea>
+                    </>
+                    : <Nothing></Nothing>}
+                </div>
+            </div>
+        </div>
+        {(messages?.length ?? 0) > 0 && <div 
+            className={"alert alert-" + messages[0].messageClass}>
+            Epoch: {messages[0].epoch}, {messages[0].bytes} bytes. {messages[0].messageText}
+            </div>
+        }
     </>
 }
