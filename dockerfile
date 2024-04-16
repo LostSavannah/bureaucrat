@@ -2,13 +2,15 @@ FROM node:latest as frontend
 
 WORKDIR /app
 
-COPY ./frontend .
+COPY ./frontend/package-lock.json .
+COPY ./frontend/package.json .
+RUN npm i
 
+COPY ./frontend .
 ARG BUREAUCRAT_API_HOST=http://localhost:19970
 ARG BUREAUCRAT_SITE_BASENAME=/
 RUN echo VITE_API_URL=${BUREAUCRAT_API_HOST} > .env
 RUN echo VITE_BASENAME=${BUREAUCRAT_SITE_BASENAME} >> .env
-RUN npm i
 
 RUN npm run build
 
