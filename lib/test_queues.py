@@ -5,41 +5,41 @@ baseUrl = "http://localhost:19970"
 
 queues:QueueService = QueueService(baseUrl)
 
-def test_on_enqueue_gets_created():
+async def test_on_enqueue_gets_created():
     queue_name:str = str(uuid.uuid4())
-    queues.enqueue(queue_name, "Content")
-    assert queue_name in queues.queues()
-    queues.delete_queue(queue_name)
+    await queues.enqueue(queue_name, "Content")
+    assert queue_name in await queues.queues()
+    await queues.delete_queue(queue_name)
 
-def test_on_dequeue_gets_created():
+async def test_on_dequeue_gets_created():
     queue_name:str = str(uuid.uuid4())
-    queues.dequeue(queue_name)
-    assert queue_name in queues.queues()
-    queues.delete_queue(queue_name)
+    await queues.dequeue(queue_name)
+    assert queue_name in await queues.queues()
+    await queues.delete_queue(queue_name)
 
-def test_on_delete_gets_delete():
+async def test_on_delete_gets_delete():
     queue_name:str = str(uuid.uuid4())
-    queues.dequeue(queue_name)
-    assert queue_name in queues.queues()
-    queues.delete_queue(queue_name)
-    assert queue_name not in queues.queues()
+    await queues.dequeue(queue_name)
+    assert queue_name in await queues.queues()
+    await queues.delete_queue(queue_name)
+    assert queue_name not in await queues.queues()
 
-def test_on_enqueue_dequeue_keeps_order():
+async def test_on_enqueue_dequeue_keeps_order():
     queue_name:str = str(uuid.uuid4())
     values = [str(uuid.uuid4()) for i in range(100)]
     for value in values:
-        queues.enqueue(queue_name, value)
+        await queues.enqueue(queue_name, value)
     values.reverse()
     while len(values) > 0:
-        assert values.pop() == queues.dequeue(queue_name)
-    queues.delete_queue(queue_name)
-    assert queue_name not in queues.queues()
+        assert values.pop() == await queues.dequeue(queue_name)
+    await queues.delete_queue(queue_name)
+    assert queue_name not in await queues.queues()
     
-def test_on_dequeue_on_empty_queue_returns_none():
+async def test_on_dequeue_on_empty_queue_returns_none():
     queue_name:str = str(uuid.uuid4())
-    assert queues.dequeue(queue_name) == None
+    assert await queues.dequeue(queue_name) == None
 
-def test_on_dequeue_on_non_empty_queue_returns_value():
+async def test_on_dequeue_on_non_empty_queue_returns_value():
     queue_name:str = str(uuid.uuid4())
-    queues.enqueue(queue_name, "content")
-    assert queues.dequeue(queue_name) is not None
+    await queues.enqueue(queue_name, "content")
+    assert await queues.dequeue(queue_name) is not None

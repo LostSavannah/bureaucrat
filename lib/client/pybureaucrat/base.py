@@ -1,6 +1,7 @@
 from typing import TypeVar, Callable
 from enum import IntEnum
 import requests
+import asyncio
 
 from .deserializers import default_deserializer
 
@@ -39,16 +40,17 @@ class BaseHttpService:
     def __init__(self, baseUrl:str) -> None:
         self.baseUrl = baseUrl
 
-    def get(self, url:str, headers:dict[str, str] = None, caster:Callable[[str,], T] = None, stream:bool = False) -> T:
+    async def get(self, url:str, headers:dict[str, str] = None, caster:Callable[[str,], T] = None, stream:bool = False) -> T:
         caster = caster or default_deserializer
-        response = requests.get(f"{self.baseUrl}/{url}", headers=headers, stream=stream)
+        request = lambda : requests.get(f"{self.baseUrl}/{url}", headers=headers, stream=stream)
+        response = await asyncio.to_thread(request)
         status = get_result_status(response.status_code)
         if status == ResultStatus.Success:
             return caster(response.text)
         else:
             raise ServiceError(status, response.text)
 
-    def post(self, url:str, parameter:T, 
+    async def post(self, url:str, parameter:T, 
              headers:dict[str, str] = None, caster:Callable[[str,], TResult] = None,
              is_raw:bool = False
              ) -> TResult:
@@ -57,17 +59,19 @@ class BaseHttpService:
             "headers": headers,
             "data" if is_raw else "json":parameter
         }
-        response = requests.post(f"{self.baseUrl}/{url}",  **params)
+        request = lambda : requests.post(f"{self.baseUrl}/{url}",  **params)
+        response = await asyncio.to_thread(request)
         status = get_result_status(response.status_code)
         if status == ResultStatus.Success:
             return caster(response.text)
         else:
             raise ServiceError(status, response.text)
         
-    def delete(self, url:str, headers:dict[str, str] = None, caster:Callable[[str,], T] = None) -> T:
+    async def delete(self, url:str, headers:dict[str, str] = None, caster:Callable[[str,], T] = None) -> T:
         caster = caster or default_deserializer
         print(f"{self.baseUrl}/{url}")
-        response = requests.delete(f"{self.baseUrl}/{url}", headers=headers)
+        request = lambda : requests.delete(f"{self.baseUrl}/{url}", headers=headers)
+        response = await asyncio.to_thread(request)
         status = get_result_status(response.status_code)
         if status == ResultStatus.Success:
             return caster(response.text)
