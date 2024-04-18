@@ -1,6 +1,7 @@
 import random
 import uuid
 from .client.pybureaucrat.trees import TreeService
+import pytest
 
 baseUrl = "http://localhost:19970"
 
@@ -12,15 +13,18 @@ def random_string(size:int = 100):
         data += chr(random.randint(ord('a'), ord('z')))
     return data
 
+@pytest.mark.asyncio
 async def test_get_forests_returns_list_of_strings():
     assert isinstance(await service.get_forests(), list), 'Forests is not a list of string'
-    
+
+@pytest.mark.asyncio    
 async def test_get_tables_of_any_forest_returns_list_of_strings():
     forest = "default"
     for i in range(10):
         await service.set_value(forest, f'forest_{i}', "$/test", str(uuid.uuid4()))
         assert isinstance(await service.get_trees(forest), list), 'Tables is not a list of string'
 
+@pytest.mark.asyncio
 async def test_value_setted_retrieved_and_deleted_sucessfully():
     forest = "default"
     for i in range(10):

@@ -17,7 +17,7 @@ class BlobsService(BaseHttpService):
         super().__init__(baseUrl)
 
     async def index(self, path:str) -> BlobsIndex:
-        index = await self.get(f"blobs/{path}")["index"]
+        index = (await self.get(f"blobs/{path}"))["index"]
         return BlobsIndex(**index)
     
     async def read(self, path:str) -> str|None:

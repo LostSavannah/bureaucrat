@@ -26,6 +26,7 @@ def get_random_text(size):
         data += chr(random.randint(ord('a'), ord('z')))
     return data
 
+@pytest.mark.asyncio
 async def test_upload_file_content():
     folders = ['root1', 'root2', 'root3']
     branches = ['branch1', 'branch2', 'branch3']
@@ -38,7 +39,7 @@ async def test_upload_file_content():
     for filepath in files:
         assert await service.read(filepath) == files[filepath]
         files[filepath] = get_random_text(10000)
-        service.write(filepath, files[filepath])
+        await service.write(filepath, files[filepath])
         assert await service.read(filepath) == files[filepath]
         assert await service.delete_blob(filepath) == True
         assert await service.read(filepath) is None
@@ -65,5 +66,3 @@ async def test_indexing():
         assert len([i for i in tindex.folders if i not in index.folders]) == 0
     for file in files:
         await service.delete_blob(file)
-
-test_indexing()
