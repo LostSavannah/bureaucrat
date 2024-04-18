@@ -23,7 +23,8 @@ jobs:
         run: |
           python3 -m venv testenv
           source testenv/bin/activate
-          pip install pytest 
+          pip install pytest
+          pip install pytest-asyncio 
           pip install requests
           pytest
           deactivate
