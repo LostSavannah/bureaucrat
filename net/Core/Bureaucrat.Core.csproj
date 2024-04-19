@@ -5,8 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>preview</LangVersion>
-    <AssemblyVersion>1.0.5</AssemblyVersion>
-    <Version>1.0.5</Version>
+    <AssemblyVersion>1.0.6</AssemblyVersion>
+    <Version>1.0.6</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docs\README.MD" Pack="true" PackagePath="\" />

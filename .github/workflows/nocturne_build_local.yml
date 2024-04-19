@@ -15,7 +15,6 @@ jobs:
 
       - name: Ensure local startup
         run: |
-          docker stop bureaucrat_test || true
           docker build -t bureaucrat_local --build-arg BUREAUCRAT_API_HOST=https://test.moradev.dev/apps/bureaucrat --build-arg BUREAUCRAT_SITE_BASENAME=/apps/bureaucrat .
           docker stop bureaucrat_local || true
           docker rm bureaucrat_local || true

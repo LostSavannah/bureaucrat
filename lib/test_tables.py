@@ -2,7 +2,7 @@ import random
 from .client.pybureaucrat.tables import TablesService
 import pytest
 
-baseUrl = "http://localhost:19970"
+baseUrl = "http://localhost:19971"
 
 service:TablesService = TablesService(baseUrl)
 

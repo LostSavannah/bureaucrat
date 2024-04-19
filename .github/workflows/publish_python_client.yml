@@ -12,15 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build and run container
-        run: |
-          docker build -t bureaucrat .
-          docker stop bureaucrat_test || true
-          docker run -d --rm --name bureaucrat_test -p 19970:19970 bureaucrat
-
-      - name: Test
+      - name: Test container with python client
         working-directory: ./lib
         run: |
+          docker build -t bureaucrat ..
+          docker run -d --rm --name bureaucrat_test -p 19971:19970 bureaucrat
           python3 -m venv testenv
           source testenv/bin/activate
           pip install pytest

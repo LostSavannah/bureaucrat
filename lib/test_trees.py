@@ -3,7 +3,7 @@ import uuid
 from .client.pybureaucrat.trees import TreeService
 import pytest
 
-baseUrl = "http://localhost:19970"
+baseUrl = "http://localhost:19971"
 
 service:TreeService = TreeService(baseUrl)
 

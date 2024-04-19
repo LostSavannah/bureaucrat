@@ -12,22 +12,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build and run container
+      - name: Test container with Net project
         run: |
           docker build -t bureaucrat .
-          docker stop bureaucrat_test || true          
-          docker stop bureaucrat_local || true
-          docker run -d --rm --name bureaucrat_test -p 19970:19970 bureaucrat
-
-      - name: Test
-        run: |
+          docker run -d --rm --name bureaucrat_test -p 19971:19970 bureaucrat
           dotnet test ./net/Bureaucrat.Test/Bureaucrat.Test.csproj
 
       - name: Stop container
         if: always()
         run: |
           docker stop bureaucrat_test || true
-          docker start bureaucrat_local  || true
 
       - name: Pack
         run: |

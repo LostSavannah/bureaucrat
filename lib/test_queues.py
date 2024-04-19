@@ -2,7 +2,7 @@ import uuid
 from .client.pybureaucrat.queues import QueueService
 import pytest
 
-baseUrl = "http://localhost:19970"
+baseUrl = "http://localhost:19971"
 
 queues:QueueService = QueueService(baseUrl)
 

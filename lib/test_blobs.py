@@ -4,7 +4,7 @@ from typing import Iterator
 from .client.pybureaucrat.blobs import BlobsService, BlobsIndex
 import pytest
 
-baseUrl = "http://localhost:19970"
+baseUrl = "http://localhost:19971"
 
 service:BlobsService = BlobsService(baseUrl)
 
