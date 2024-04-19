@@ -1,4 +1,5 @@
 ﻿using Bureaucrat.Core.Common;
+using System.Text.Json;
 
 namespace Bureaucrat.Core.Queuing;
 
@@ -14,7 +15,9 @@ public class BureaucratQueueService(IHttpService httpService): BureaucratService
 
     public async Task<T?> Dequeue<T>(string queueName)
     {
-        return await HttpService.Get<T>($"/{EndpointName}/{queueName}");
+        return await HttpService.Get(
+            $"/{EndpointName}/{queueName}", 
+            data => data.Length > 0 ? JsonSerializer.Deserialize<T?>(data!) : default!);
     }
 
     public async Task<string> Enqueue<T>(string queueName, T value) => (await HttpService.Post<T, GenericResult<string>>($"/{EndpointName}/{queueName}", value)).Result!;

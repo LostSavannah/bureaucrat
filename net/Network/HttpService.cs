@@ -22,7 +22,16 @@ public class HttpService : IHttpService
     async Task<T> IHttpService.Get<T>(string url)
     {
         using var response = await httpClient.GetAsync(url);
-        return (await response.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<T>())!;
+        T result = default!;
+        try
+        {
+            result = (await response.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<T>())!;
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return result;
     }
 
     async Task<T> IHttpService.Get<T>(string url, Func<string, T> parser)

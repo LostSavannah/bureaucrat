@@ -1,5 +1,4 @@
-﻿using Bureaucrat.Core.Common;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 
 namespace Bureaucrat.Core.Common;
 
