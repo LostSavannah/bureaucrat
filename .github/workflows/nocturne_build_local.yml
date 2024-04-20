@@ -1,4 +1,4 @@
-name: Local nightly publish
+name: Local publish
 
 on:
   schedule:

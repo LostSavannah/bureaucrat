@@ -1,4 +1,4 @@
-name: python client
+name: Python client
 
 on:
   push:
