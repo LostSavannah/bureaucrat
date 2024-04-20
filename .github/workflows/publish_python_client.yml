@@ -31,9 +31,7 @@ jobs:
           docker run -d --rm --name bureaucrat_test -p 19971:19970 bureaucrat
           python3 -m venv testenv
           source testenv/bin/activate
-          pip install pytest
-          pip install pytest-asyncio 
-          pip install requests
+          pip install pytest pytest-asyncio requests
           pytest
           deactivate
 
