@@ -17,7 +17,7 @@
 <body class="bg-dark text-light vh-100">
     <header class="bg-primary p-4">
         <h3>Bureaucrat</h3>
-        <h6>simple queues, blobs, tables and trees</h6>
+        <h6>Simple queues, blobs, tables, trees and templates</h6>
     </header>
     <div class="container p-2">
        <div class="row">
@@ -25,7 +25,7 @@
             <div class="d-flex flex-row justify-content-center align-items-center p-4">
                 <div class="d-flex flex-column align-items-center">
                     <div class="p-2">
-                        Bureaucrat is a credential-less service with queues, blobs, tables and trees.
+                        Bureaucrat is a credential-less service with queues, blobs, tables, trees and templates.
                     </div>
                     <div class="p-2">
                         <a 
@@ -61,7 +61,7 @@
                 <div class="d-flex flex-row justify-content-center align-items-center p-4">
                     <div class="d-flex flex-column align-items-center">
                         
-                        <div class="p-2"> A lightweight experimental credential-less service with queues, tables, blobs and trees built on top of <a href="https://fastapi.tiangolo.com/">FastApi</a> </div>
+                        <div class="p-2"> A lightweight experimental credential-less service with queues, tables, blobs, trees and templates built on top of <a href="https://fastapi.tiangolo.com/">FastApi</a> </div>
                         
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                     <h2>Queues</h2>
                 </div>
                 <div class="p-2">
-                    Bureacrat uses a very straightfoward in-memory queue paradigm. Any queue gets created when needed (when any queue or dequeue operation is requested in a queue). Futhermore every queue can be deleted on demand.
+                    Bureacrat uses a very straightfoward in-memory queue paradigm. Every queue gets created when needed (when any queue or dequeue operation is requested in a queue). Futhermore every queue can be deleted on demand.
                 </div>
                 
                 <div class="p-2" id="queuesTable">
@@ -245,15 +245,89 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="p-2">
+                    <h2>Templates</h2>
+                </div>
+                <div class="p-2">
+                    The templates service allows you to manage documents templates, and parse and export them. The supported parsing engines include mako and jinja2. Also, you can export to pdf or docx.
+                </div>
+                
+                <div class="p-2" id="queuesTable">
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">Method</th>
+                                <th scope="col">Path</th>
+                                <th scope="col">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src="https://img.shields.io/badge/-GET-blue.svg"/></td>
+                                <td>/templates/template</td>
+                                <td>List every available template</td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://img.shields.io/badge/-GET-blue.svg"/></td>
+                                <td>/trees/render</td>
+                                <td>Lists every available render</td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://img.shields.io/badge/-GET-blue.svg"/></td>
+                                <td>/trees/parser</td>
+                                <td>Lists every available parser</td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://img.shields.io/badge/-GET-blue.svg"/></td>
+                                <td>/templates/template/{template}</td>
+                                <td>Gets the content of the template {template}</td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://img.shields.io/badge/-POST-green.svg"/></td>
+                                <td>/templates/template/{template}</td>
+                                <td>Sets the content of the template {template}, creating it if not exists</td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://img.shields.io/badge/-DELETE-red.svg"/></td>
+                                <td>/templates/template/{template}</td>
+                                <td>Deletes the template {template}</td>
+                            </tr>
+                            <tr>
+                                <td><img src="https://img.shields.io/badge/-PUT-orange.svg"/></td>
+                                <td>/templates/template/{template}?render={render}&parser={parser}</td>
+                                <td>Parses the template {template} with the given data, using the render {render} and {parser} parser.</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
                 
             </div>
        </div> 
     </div>
-    <footer>
-    <div>
-        <a href="https://github.com/LostSavannah/bureaucrat/actions/workflows/">
+    <footer class="bg-dark w-100 p-4 d-flex align-items-center justify-content-center">
+    <div class="p-1">
+        <a href="https://www.nuget.org/packages/Bureaucrat.Core">
             <img
-                src="https://github.com/LostSavannah/bureaucrat/actions/workflows/publish_image.yml/badge.svg?branch=main"
+                src="https://img.shields.io/nuget/v/Bureaucrat.Core.svg?style=flat-square" alt="NuGet version (Bureaucrat.Core)"
+            />
+        </a>
+    </div><div class="p-1">
+        <a href="https://hub.docker.com/repository/docker/coderookieerick/bureaucrat/general">
+            <img
+                src="https://img.shields.io/docker/v/coderookieerick/bureaucrat?style=flat-square" alt="Docker image (bureaucrat)"
+            />
+        </a>
+    </div><div class="p-1">
+        <a href="https://pypi.org/project/pybureaucrat/">
+            <img
+                src="https://img.shields.io/pypi/v/pybureaucrat?style=flat-square" alt="Pypi package (pybureaucrat)"
+            />
+        </a>
+    </div><div class="p-1">
+        <a href="https://github.com/LostSavannah/bureaucrat/actions/workflows/publish_image.yml">
+            <img
+                src="https://img.shields.io/github/actions/workflow/status/LostSavannah/bureaucrat/publish_image.yml?style=flat-square" alt="Nightly builds"
             />
         </a>
     </div>

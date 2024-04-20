@@ -1,7 +1,7 @@
 {
     "title": "Bureaucrat",
-    "slogan": "simple queues, blobs, tables and trees",
-    "description": "Bureaucrat is a credential-less service with queues, blobs, tables and trees.",
+    "slogan": "Simple queues, blobs, tables, trees and templates",
+    "description": "Bureaucrat is a credential-less service with queues, blobs, tables, trees and templates.",
     "links": [
         {
             "href": "https://hub.docker.com/r/coderookieerick/bureaucrat",
@@ -21,19 +21,19 @@
         }
     ],
     "html_paragraphs":[
-        "A lightweight experimental credential-less service with queues, tables, blobs and trees built on top of <a href=\"https://fastapi.tiangolo.com/\">FastApi</a>"
+        "A lightweight experimental credential-less service with queues, tables, blobs, trees and templates built on top of <a href=\"https://fastapi.tiangolo.com/\">FastApi</a>"
     ],
     "md_paragraphs":[
         {
             "title": "Admin site",
-            "text": "In the hosting machine you can access the admin site in this location: [http://localhost:19760/](http://localhost:19760/)"
+            "text": "In the hosting machine you can access the admin site in this location: [http://localhost:19970/](http://localhost:19970/)"
         }
     ],
     "services":[
         {
             "name": "Queues",
             "html_description": [
-                "Bureacrat uses a very straightfoward in-memory queue paradigm. Any queue gets created when needed (when any queue or dequeue operation is requested in a queue). Futhermore every queue can be deleted on demand."
+                "Bureacrat uses a very straightfoward in-memory queue paradigm. Every queue gets created when needed (when any queue or dequeue operation is requested in a queue). Futhermore every queue can be deleted on demand."
             ],
             "endpoints":[
                 {
@@ -169,14 +169,79 @@
                     "description": "Sets the content of the node located in the {path} inside the {tree} belonging to the specified {forest}"
                 }
             ]
+        },
+        {
+            "name": "Templates",
+            "html_description": [
+                "The templates service allows you to manage documents templates, and parse and export them. The supported parsing engines include mako and jinja2. Also, you can export to pdf or docx."
+            ],
+            "endpoints":[
+                {
+                    "type": "GET",
+                    "method": "GET-blue.svg",
+                    "path": "/templates/template",
+                    "description": "List every available template"
+                },
+                {
+                    "type": "GET",
+                    "method": "GET-blue.svg",
+                    "path": "/trees/render",
+                    "description": "Lists every available render"
+                },
+                {
+                    "type": "GET",
+                    "method": "GET-blue.svg",
+                    "path": "/trees/parser",
+                    "description": "Lists every available parser"
+                },
+                {
+                    "type": "GET",
+                    "method": "GET-blue.svg",
+                    "path": "/templates/template/{template}",
+                    "description": "Gets the content of the template {template}"
+                },
+                {
+                    "type": "POST",
+                    "method": "POST-green.svg",
+                    "path": "/templates/template/{template}",
+                    "description": "Sets the content of the template {template}, creating it if not exists"
+                },
+                {
+                    "type": "DELETE",
+                    "method": "DELETE-red.svg",
+                    "path": "/templates/template/{template}",
+                    "description": "Deletes the template {template}"
+                },
+                {
+                    "type": "PUT",
+                    "method": "PUT-orange.svg",
+                    "path": "/templates/template/{template}?render={render}&parser={parser}",
+                    "description": "Parses the template {template} with the given data, using the render {render} and {parser} parser."
+                }
+            ]
         }
     ],
     "repository": "https://github.com/LostSavannah/bureaucrat",
     "badges":[
         {
-            "title": "Bureaucrat",
-            "action": "publish_image",
-            "branches": ["main"]
+            "description": "NuGet version (Bureaucrat.Core)",
+            "badgeUrl": "https://img.shields.io/nuget/v/Bureaucrat.Core.svg?style=flat-square",
+            "target": "https://www.nuget.org/packages/Bureaucrat.Core"
+        },
+        {
+            "description": "Docker image (bureaucrat)",
+            "badgeUrl": "https://img.shields.io/docker/v/coderookieerick/bureaucrat?style=flat-square",
+            "target": "https://hub.docker.com/repository/docker/coderookieerick/bureaucrat/general"
+        },
+        {
+            "description": "Pypi package (pybureaucrat)",
+            "badgeUrl": "https://img.shields.io/pypi/v/pybureaucrat?style=flat-square",
+            "target": "https://pypi.org/project/pybureaucrat/"
+        },
+        {
+            "description": "Nightly builds",
+            "badgeUrl": "https://img.shields.io/github/actions/workflow/status/LostSavannah/bureaucrat/publish_image.yml?style=flat-square",
+            "target": "https://github.com/LostSavannah/bureaucrat/actions/workflows/publish_image.yml"
         }
     ]
 }

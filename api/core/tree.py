@@ -6,7 +6,7 @@ import os
 Node = dict[str, Union['Node', list['Node'], str]]
 
 def is_number(data:str) -> bool:
-    if re.match('^[\d]+$', data):
+    if re.match(r'^[\d]+$', data):
         return True
     return False
 
@@ -107,7 +107,7 @@ class Tree:
         current, *path = path
         if current == '$':
             return self.node(path, root, item, current_path)
-        if re.match('^[\d]+$', current):
+        if is_number(current):
             current = int(current)
         if isinstance(current, int):
             if not isinstance(root, list):
@@ -146,7 +146,7 @@ class Tree:
         current, *path = path
         if current == '$':
             return self.remove_node(path, root, '/'.join([current_path, str(current)]))
-        if re.match('^[\d]+$', current):
+        if is_number(current):
             current = int(current)
         if len(path) == 0:
             del root[current]

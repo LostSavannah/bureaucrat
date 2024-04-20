@@ -1,2 +1,0 @@
-templates/template.html:site/index.html
-templates/template.md:README.md

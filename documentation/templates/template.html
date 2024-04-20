@@ -90,14 +90,14 @@
             </div>
        </div> 
     </div>
-    <footer>
-    {% for badge in badges %}{% for branch in badge.branches %}<div>
-        <a href="{{repository}}/actions/workflows/{{badge.action.yml}}">
+    <footer class="bg-dark w-100 p-4 d-flex align-items-center justify-content-center">
+    {% for badge in badges %}<div class="p-1">
+        <a href="{{badge.target}}">
             <img
-                src="{{repository}}/actions/workflows/{{badge.action}}.yml/badge.svg?branch={{branch}}"
+                src="{{badge.badgeUrl}}" alt="{{badge.description}}"
             />
         </a>
-    </div>{% endfor %}{% endfor %}
+    </div>{% endfor %}
     </footer>
 </body>
 </html>

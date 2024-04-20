@@ -19,10 +19,8 @@ FROM python:latest as documentation
 WORKDIR /app
 
 RUN pip install jinja2
-COPY ./build_templates.py .
-COPY ./documentation.json .
-COPY ./templates ./templates
-RUN mkdir ./site
+COPY ./documentation ./documentation
+WORKDIR /app/documentation
 RUN python3 ./build_templates.py
 
 FROM python:latest as main
@@ -46,7 +44,8 @@ RUN pip install -r ./api/requirements.txt
 COPY ./default /bureaucrat/data
 
 COPY --from=frontend /app/dist ./frontend
-COPY --from=documentation /app/site ./frontend/doc
+COPY --from=documentation /app/documentation/index.html ./frontend/doc/index.html
+COPY --from=documentation /app/README.md ./frontend/doc/README.md
 COPY ./api ./api
 
 CMD ["python", "/bureaucrat/api/index.py"]
