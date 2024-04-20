@@ -39,13 +39,13 @@ ENV BUREAUCRAT_API_PORT=19970
 
 RUN mkdir -p $BUREAUCRAT_TABLES_DATABASE $BUREAUCRAT_BLOBS_ROOT $BUREAUCRAT_TREES_ROOT
 
-COPY ./api/requirements.txt ./api/
+COPY ./api/fastapi/requirements.txt ./api/
 RUN pip install -r ./api/requirements.txt
 COPY ./default /bureaucrat/data
 
 COPY --from=frontend /app/dist ./frontend
 COPY --from=documentation /app/documentation/index.html ./frontend/doc/index.html
 COPY --from=documentation /app/README.md ./frontend/doc/README.md
-COPY ./api ./api
+COPY ./api/fastapi ./api
 
 CMD ["python", "/bureaucrat/api/index.py"]

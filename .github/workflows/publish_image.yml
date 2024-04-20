@@ -1,20 +1,32 @@
-name: Scheduled midnight docker publish
+name: ci
 
 on:
+  push:
+    branches: [ "docker" ]
   schedule:
     - cron: "0 4 * * *"
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: dockerable
+  test:
+    runs-on: ubuntu-latest
     steps:
       
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3'
+      
+      - name: Set up QEMU
+        uses: actions/setup-qemu-action@v3
+      
+      - name: Set up Docker buildx
+        uses: actions/setup-buildx-action@v3
 
       - name: Build container
-        if: always()
         run: |
           docker build -t bureaucrat .
       
@@ -36,6 +48,13 @@ jobs:
         if: always()
         run: |
           docker stop bureaucrat_test || true
+
+  build:
+    runs-on: dockerable
+    steps:
+      
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Publish container to dockerhub
         run: |

@@ -8,7 +8,7 @@
             "name": "Python: Current File",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/api/index.py",
+            "program": "${workspaceFolder}/api/fastapi/index.py",
             "console": "integratedTerminal",
             "justMyCode": true,
             "env": {
@@ -17,7 +17,7 @@
                 "BUREAUCRAT_BLOBS_ROOT": "${workspaceFolder}\\default\\blobs",
                 "BUREAUCRAT_TREES_ROOT": "${workspaceFolder}\\default\\trees",
                 "BUREAUCRAT_STATIC_PATH": "${workspaceFolder}\\frontend\\dist",
-                "BUREAUCRAT_WORKERS_ROOT": "${workspaceFolder}\\api",
+                "BUREAUCRAT_WORKERS_ROOT": "${workspaceFolder}\\api\\fastapi",
                 "BUREAUCRAT_WORKERS_PACKAGE": "workers",
                 "BUREAUCRAT_API_HOST": "0.0.0.0",
                 "BUREAUCRAT_API_PORT": "19970"
