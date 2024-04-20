@@ -1,4 +1,4 @@
-name: Publish python client
+name: python client
 
 on:
   push:
@@ -6,11 +6,23 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: dockerable
+  test:
+    runs-on: ubuntu-latest
     steps:
+      
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3'
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Test container with python client
         working-directory: ./lib
@@ -29,6 +41,13 @@ jobs:
         if: always()
         run: |
           docker stop bureaucrat_test || true
+
+  build:
+    needs: [ test ]
+    runs-on: dockerable
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Build package
         working-directory: ./lib
