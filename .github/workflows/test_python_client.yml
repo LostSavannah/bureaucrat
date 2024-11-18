@@ -1,8 +1,9 @@
-name: Publish python client
-run-name: Python client publish
+name: Test python client
+run-name: Python client scheduled test
 on:
-  push:
-    branches: [ "python-client" ]
+  schedule:
+    - cron: "50 3 * * *"
+    - cron: "50 17 * * *"
   workflow_dispatch:
 
 jobs:
@@ -39,29 +40,3 @@ jobs:
         if: always()
         run: |
           docker stop bureaucrat_test || true
-
-  build:
-    needs: [ test ]
-    runs-on: dockerable
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Build package
-        working-directory: ./lib
-        run: |
-          python3 -m venv buildenv
-          source buildenv/bin/activate
-          pip install build
-          pip install setuptools
-          python3 -m build
-          deactivate
-
-      - name: Publish package
-        working-directory: ./lib
-        run: |
-          python3 -m venv publishenv
-          source publishenv/bin/activate
-          pip install twine
-          twine upload -u __token__ -p ${{ secrets.PYBUREAUCRAT_TWINE_TOKEN }} dist/*
-          deactivate

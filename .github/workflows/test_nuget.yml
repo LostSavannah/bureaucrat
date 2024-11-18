@@ -1,8 +1,9 @@
-name: Publish nuget
-
+name: Test nuget
+run-name: Nuget package scheduled test
 on:
-  push:
-    branches: [ "nuget" ]
+  schedule:
+    - cron: "50 3 * * *"
+    - cron: "50 17 * * *"
   workflow_dispatch:
 
 jobs:
@@ -31,23 +32,3 @@ jobs:
         if: always()
         run: |
           docker stop bureaucrat_test || true
-
-  build:
-    needs: [ test-container ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        
-      - name: Setup dotnet8
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8'
-
-      - name: Pack
-        run: |
-          dotnet pack ./net/Core/Bureaucrat.Core.csproj -o ./package
-
-      - name: Publish package to nuget
-        run: |
-          dotnet nuget push ./package/*.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json
