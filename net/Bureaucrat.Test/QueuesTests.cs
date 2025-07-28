@@ -1,6 +1,5 @@
 ﻿using Bureaucrat.Core.Common;
 using Bureaucrat.Core.Connection;
-using System.Collections;
 
 namespace Bureaucrat.Test;
 

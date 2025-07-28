@@ -1,6 +1,4 @@
-﻿using Bureaucrat.Core.Common;
-
-namespace Bureaucrat.Core.Trees;
+﻿namespace Bureaucrat.Core.Trees;
 
 public class BureaucratGenericTreeNode<T>(BureaucratTreeService service, string forest, string tree, string name)
     : BureaucratTreeNode(service, forest, tree, name)
